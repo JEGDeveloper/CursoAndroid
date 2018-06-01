@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">JProject</string>
+    <!--Login Activity-->
+    <string name="LoginTittle">Ingreso al Sistema</string>
+    <string name="LoginTVUser">Usuario:</string>
+    <string name="LoginTVPassword">Contraseña:</string>
+    <string name="LoginChkFaceDetection">Detección de Rostro</string>
+    <string name="LoginBtnLogin">Ingresar</string>
+    <string name="LoginTstNoUsername">Por favor, digite su usuario</string>
+    <string name="LoginTstNoPassword">Por favor, digite su contraseña</string>
+    <string name="title_activity_index">Index</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Cliente</string>
+    <string name="nav_header_subtitle">correo@prueba.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="LoginTstFaceDectFailed">Su rostro no fue reconocido y se han agotado los intentos.</string>
+    <string name="LoginTstFaceDectNoMatch">Su rostro no fue reconocido.</string>
+    <string name="DrawerOptionsTitle">Opciones</string>
+    <string name="DrawerOptionLogout">Salir</string>
+    <string name="DrawerOptionConfig">Configuración</string>
+    <string name="OptionNoImplemented">¡Lo sentimos! La opción no está implementada aún.</string>
+    <string name="DialogWhatsTvPhoneNumber">Número de Teléfono:</string>
+    <string name="DialogWhatsTvMessage">Mensaje:</string>
+    <string name="DialogWhatsBtnAceptar">Enviar</string>
+    <string name="DialogWhatsBtnCancelar">Cancelar</string>
+    <string name="DialogWhatsTvTitle">Mensaje de WhatsApp</string>
+</resources>

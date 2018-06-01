@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">JProject</string>
+    <string name="LoginTittle">Login</string>
+    <string name="LoginTVUser">User:</string>
+    <string name="LoginTVPassword">Password:</string>
+    <string name="LoginChkFaceDetection">Face Detection</string>
+    <string name="LoginBtnLogin">Login</string>
+    <string name="LoginTstNoUsername">Please, type your username</string>
+    <string name="LoginTstNoPassword">Please, type your password</string>
+    <string name="LoginTstFaceDectFailed">Your face wasn\'t recognized. Please, try it later...</string>
+    <string name="LoginTstFaceDectNoMatch">Your face wasn´t recognized</string>
+    <string name="DrawerOptionsTitle">Options</string>
+    <string name="DrawerOptionLogout">Logout</string>
+    <string name="DrawerOptionConfig">Settings</string>
+    <string name="OptionNoImplemented">This option is not implemented yet</string>
+    <string name="DialogWhatsTvPhoneNumber">Phone Number:</string>
+    <string name="DialogWhatsTvMessage">Message:</string>
+    <string name="DialogWhatsBtnAceptar">Send</string>
+    <string name="DialogWhatsBtnCancelar">Cancel</string>
+    <string name="DialogWhatsTvTitle">WhatsApp Message</string>
+</resources>
