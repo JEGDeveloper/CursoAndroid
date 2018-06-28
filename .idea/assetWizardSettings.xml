@@ -18,23 +18,12 @@
                                 <PersistentState>
                                   <option name="children">
                                     <map>
-                                      <entry key="clipArt">
-                                        <value>
-                                          <PersistentState>
-                                            <option name="values">
-                                              <map>
-                                                <entry key="paddingPercent" value="5" />
-                                              </map>
-                                            </option>
-                                          </PersistentState>
-                                        </value>
-                                      </entry>
                                       <entry key="clipartAsset">
                                         <value>
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_settings_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/social/ic_share_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -44,10 +33,7 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="imageAsset" value="C:\Users\yespinoza\Pictures\Grupo Prides Icon.jpeg" />
-                                      <entry key="outputName" value="ic_settings" />
-                                      <entry key="theme" value="CUSTOM" />
-                                      <entry key="themeColor" value="a60c00" />
+                                      <entry key="outputName" value="ic_share" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -58,59 +44,9 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="foregroundImage" value="C:\Users\yespinoza\Documents\JEspinoza\Cenfotec\Android\Project\Images\android-boot-animation.gif" />
-                                      <entry key="foregroundLayerName" value="ic_android_dark_loading" />
-                                    </map>
-                                  </option>
-                                </PersistentState>
-                              </value>
-                            </entry>
-                            <entry key="launcherLegacy">
-                              <value>
-                                <PersistentState>
-                                  <option name="children">
-                                    <map>
-                                      <entry key="clipArt">
-                                        <value>
-                                          <PersistentState>
-                                            <option name="values">
-                                              <map>
-                                                <entry key="color" value="a60c00" />
-                                                <entry key="paddingPercent" value="25" />
-                                              </map>
-                                            </option>
-                                          </PersistentState>
-                                        </value>
-                                      </entry>
-                                      <entry key="clipartAsset">
-                                        <value>
-                                          <PersistentState>
-                                            <option name="values">
-                                              <map>
-                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_input_black_24dp.xml" />
-                                              </map>
-                                            </option>
-                                          </PersistentState>
-                                        </value>
-                                      </entry>
-                                      <entry key="image">
-                                        <value>
-                                          <PersistentState>
-                                            <option name="values">
-                                              <map>
-                                                <entry key="paddingPercent" value="-10" />
-                                              </map>
-                                            </option>
-                                          </PersistentState>
-                                        </value>
-                                      </entry>
-                                    </map>
-                                  </option>
-                                  <option name="values">
-                                    <map>
-                                      <entry key="cropped" value="true" />
-                                      <entry key="imageAsset" value="C:\Users\yespinoza\Documents\JEspinoza\Cenfotec\Android\Project\Images\profile_icon.png" />
-                                      <entry key="outputName" value="ic_logout" />
+                                      <entry key="backgroundAssetType" value="COLOR" />
+                                      <entry key="foregroundImage" value="D:\JEspinoza\Cenfotec\Android\Project\Images\app_icon.jpeg" />
+                                      <entry key="foregroundLayerName" value="ic_app_icon" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -129,11 +65,6 @@
                 </map>
               </option>
             </PersistentState>
-          </value>
-        </entry>
-        <entry key="vectorWizard">
-          <value>
-            <PersistentState />
           </value>
         </entry>
       </map>

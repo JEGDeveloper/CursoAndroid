@@ -1,13 +1,19 @@
 package test.yespinoza.androidproject.Activity;
 
 import android.app.Dialog;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,9 +24,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import test.yespinoza.androidproject.Adapter.UserAdapter;
+import test.yespinoza.androidproject.Fragment.SettingsFragment;
+import test.yespinoza.androidproject.Fragment.StudyFragment;
 import test.yespinoza.androidproject.Model.WhatsApp;
 import test.yespinoza.androidproject.R;
 
@@ -28,26 +38,24 @@ import test.yespinoza.androidproject.Model.User;
 
 public class Index extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    public static String ACTIVITY_CODE = "101";
+    public static String ACTIVITY_CODE = "103";
     User oUser;
+    NavigationView navigationView;
+    public static Index instance;
+    private boolean onIndex = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        instance = this;
         setContentView(R.layout.activity_index);
-        Intent oIntent = getIntent();
-        oUser = (User) oIntent.getSerializableExtra("USER");
+        //Se asigna el usuario Actual
+        oUser = UserAdapter.getCurrentUser();
+        navigationView = findViewById(R.id.nav_view);
+        userData();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                OpenWhatsAppDialog(view);
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -66,17 +74,50 @@ public class Index extends AppCompatActivity
             oTextView.setText("correo@correo.com");
     }
 
+    public static Index getInstance() {
+        return instance;
+    }
+
+    public void userData() {
+        oUser = UserAdapter.getCurrentUser();
+        navigationView.setNavigationItemSelectedListener(this);
+        TextView tvDrawerName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tvDrawerName);
+        TextView tvDrawerEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tvDrawerEmail);
+        if(tvDrawerName != null)
+            tvDrawerName.setText(oUser.getFullName());
+        if(tvDrawerEmail != null)
+            tvDrawerEmail.setText(oUser.getEmail());
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         int id=item.getItemId();
         switch (id){
+            case R.id.action_home:
+                mostrarFragment(new Fragment());
+                onIndex = true;
+                break;
             case R.id.action_settings:
-                Toast.makeText(this, getString(R.string.OptionNoImplemented), Toast.LENGTH_SHORT).show();
+                mostrarFragment(new SettingsFragment());
+                onIndex = false;
+                //Toast.makeText(this, getString(R.string.OptionNoImplemented), Toast.LENGTH_SHORT).show();
             break;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    private void mostrarFragment(Fragment fragment) {
+        FrameLayout contedorFragments = (FrameLayout)findViewById(R.id.frmLayoutIndex);
+
+        //getSupportFragmentManager()
+        FragmentTransaction transaccion = getFragmentManager().beginTransaction();
+
+        transaccion.replace(R.id.frmLayoutIndex, fragment);
+
+        transaccion.commit();
+    }
+
+    /*
     private void OpenWhatsAppDialog(View view){
         try{
             final Dialog oDialog = new Dialog(this);
@@ -145,21 +186,55 @@ public class Index extends AppCompatActivity
             Snackbar.make(view, getString(R.string.OptionNoImplemented), Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         }
-    }
+    }*/
+
     private void Logout() {
-        Intent oIntent = new Intent(this, Login.class);
-        startActivity(oIntent);
-        finish();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(getString(R.string.LogoutDialogMessage))
+                .setCancelable(false)
+                .setPositiveButton(getString(R.string.LogoutDialogAcept), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        SharedPreferences myPreferences = PreferenceManager.getDefaultSharedPreferences(Index.this);
+                        SharedPreferences.Editor myEditor = myPreferences.edit();
+                        myEditor.putString("Password", "");
+                        myEditor.commit();
+                        Intent oIntent = new Intent(Index.this, Login.class);
+                        startActivity(oIntent);
+                        finish();
+                    }
+                })
+                .setNegativeButton(getString(R.string.LogoutDialogDecline), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
+    public void onBackPressed(){
+        /*AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(getString(R.string.LogoutDialogMessage))
+                .setCancelable(false)
+                .setPositiveButton(getString(R.string.LogoutDialogAcept), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Index.this.finish();
+                    }
+                })
+                .setNegativeButton(getString(R.string.LogoutDialogDecline), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();*/
+
+        if(!onIndex) {
+            startActivity(new Intent(this, Index.class));
         }
+        onIndex = true;
+        finish();
     }
 
     @Override
@@ -179,9 +254,20 @@ public class Index extends AppCompatActivity
         if (id == R.id.DrawerOptionLogout) {
             Logout();
         }
-        else if (id == R.id.DrawerOptionConfig) {
+        else if (id == R.id.DrawerOptionHome) {
+            mostrarFragment(new Fragment());
+            onIndex = true;
+            //
+        } else if (id == R.id.DrawerOptionConfig) {
+            mostrarFragment(new SettingsFragment());
+            onIndex = false;
+        } else if (id == R.id.DrawerOptionResume) {
+            mostrarFragment(new StudyFragment());
+            onIndex = false;
+        }else{
             Toast.makeText(this, getString(R.string.OptionNoImplemented), Toast.LENGTH_SHORT).show();
-        } /*else if (id == R.id.nav_slideshow) {
+        }
+        /*else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
 

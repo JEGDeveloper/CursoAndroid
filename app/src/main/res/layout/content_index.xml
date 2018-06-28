@@ -7,11 +7,17 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Activity.Index"
     tools:showIn="@layout/app_bar_index">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/index_background">
 
-    </LinearLayout>
+    <FrameLayout
+        android:id="@+id/frmLayoutIndex"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/index_background">
+
+        </LinearLayout>
+    </FrameLayout>
 
 </android.support.constraint.ConstraintLayout>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="StudiesType">
+        <item>CENFOTEC</item>
+        <item>UTN</item>
+        <item>UCR</item>
+        <item>UNA</item>
+        <item>UCIMED</item>
+        <item>UIH</item>
+        <item>UNIVERSIDAD</item>
+        <item>INA</item>
+        <item>TECNICO</item>
+        <item>COLEGIO REGULAR</item>
+        <item>COLEGIO NOCTURNO</item>
+        <item>ESCUELA NOCTURNA</item>
+        <item>ESCUELA REGULAR</item>
+    </string-array>
+</resources>

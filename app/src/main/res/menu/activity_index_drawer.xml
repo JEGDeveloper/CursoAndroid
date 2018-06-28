@@ -26,6 +26,14 @@
     <item android:title="@string/DrawerOptionsTitle">
         <menu>
             <item
+                android:id="@+id/DrawerOptionHome"
+                android:icon="@drawable/ic_home"
+                android:title="@string/DrawerOptionHome"/>
+            <item
+                android:id="@+id/DrawerOptionResume"
+                android:icon="@drawable/ic_resume"
+                android:title="@string/DrawerOptionResume"/>
+            <item
                 android:id="@+id/DrawerOptionConfig"
                 android:icon="@drawable/ic_settings"
                 android:title="@string/DrawerOptionConfig"/>

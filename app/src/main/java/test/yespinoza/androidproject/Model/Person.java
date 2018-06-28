@@ -11,6 +11,33 @@ public class  Person implements Serializable {
     private String dateOfBirth;
     private String address;
 
+    public Person(){
+        id = "";
+        name = "";
+        lastName = "";
+        email = "";
+        phone = "";
+        dateOfBirth = "";
+        address = "";
+    }
+
+    public Person(String pId, String pName, String pLastName, String pEmail, String pPhone, String pDateOfBirth, String pAddress){
+        id = pId;
+        name = pName;
+        lastName = pLastName;
+        email = pEmail;
+        phone = pPhone;
+        dateOfBirth = pDateOfBirth;
+        address = pAddress;
+    }
+
+    public String getFullName(){
+        try {
+            return name.concat(" ").concat(lastName);
+        }catch (Exception oException){
+            return "";
+        }
+    }
     public String getId() {
         return id;
     }
