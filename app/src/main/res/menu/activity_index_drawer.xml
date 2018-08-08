@@ -26,11 +26,19 @@
     <item android:title="@string/DrawerOptionsTitle">
         <menu>
             <item
-                android:id="@+id/DrawerOptionConfig"
+                android:id="@+id/action_favorite_locations"
+                android:icon="@drawable/ic_favorite"
+                android:title="@string/DrawerOptionsFavoritePlaces"/>
+            <item
+                android:id="@+id/action_location"
+                android:icon="@drawable/ic_location"
+                android:title="@string/DrawerOptionsPlace"/>
+            <item
+                android:id="@+id/action_settings"
                 android:icon="@drawable/ic_settings"
                 android:title="@string/DrawerOptionConfig"/>
             <item
-                android:id="@+id/DrawerOptionLogout"
+                android:id="@+id/action_logout"
                 android:icon="@drawable/ic_logout"
                 android:title="@string/DrawerOptionLogout"/>
         </menu>

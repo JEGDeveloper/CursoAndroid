@@ -4,9 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.Login"
+    tools:context=".View.Activity.Login"
     android:orientation="vertical"
-    android:background="@color/colorBlack">
+    android:background="@color/colorBlack"
+    android:focusableInTouchMode="true"
+    android:focusable="false"
+    android:layout_gravity="center">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -18,10 +21,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@color/colorPrimary"
-            >
+            android:background="@drawable/btnlogin_shape">
             <TextView
-                android:id="@+id/Prueba"
+                android:id="@+id/tvTitle"
                 android:layout_width="match_parent"
                 android:gravity="center"
                 android:layout_height="wrap_content"
@@ -35,6 +37,22 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_margin="10dp">
+
+                <Button
+                    android:id="@+id/btnRegister"
+                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:text="@string/CreateUser"
+                    android:textAllCaps="false"
+                    android:layout_marginTop="15dp"
+                    android:textStyle="bold"
+                    android:layout_gravity="right"
+                    android:paddingHorizontal="25dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:onClick="CreateUserRedirection"
+                    android:textColor="@color/colorPrimary"
+                    android:background="@drawable/text_view_shape"/>
+
                 <TextView
                     android:id="@+id/lblUserName"
                     android:layout_width="wrap_content"
@@ -46,18 +64,19 @@
                 <EditText
                     android:id="@+id/txtUserName"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:inputType="textPersonName"
+                    android:inputType="number"
                     android:layout_marginRight="22dp"
                     android:layout_marginLeft="22dp"
-                    android:background="@color/colorWhite"
-                    android:textColor="@color/colorBlack" />
+                    android:textColor="@color/colorBlack"
+                    android:layout_height="40dp"
+                    android:paddingHorizontal="10dp"
+                    android:background="@drawable/text_view_shape"/>
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
                 android:layout_margin="10dp">
                 <TextView
                     android:id="@+id/lblPassword"
@@ -70,43 +89,57 @@
                 <EditText
                     android:id="@+id/txtPassword"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
                     android:inputType="textPassword"
                     android:layout_marginRight="22dp"
                     android:layout_marginLeft="22dp"
-                    android:layout_marginBottom="22dp"
-                    android:background="@color/colorWhite"
-                    android:textColor="@color/colorBlack" />
+                    android:textColor="@color/colorBlack"
+                    android:layout_height="40dp"
+                    android:paddingHorizontal="10dp"
+                    android:background="@drawable/text_view_shape" />
             </LinearLayout>
-            <CheckBox
-                android:id="@+id/chkFaceLogin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/LoginChkFaceDetection"
-                android:background="@color/colorBlack"
-                android:buttonTint="@color/colorWhite"
-                android:textColorLink="@color/colorPrimary"
-                android:textColor="@color/colorWhite"
-                android:layout_margin="22dp"
-                android:onClick="TakePhoto"
-                android:textSize="20dp"/>
+
             <Button
                 android:id="@+id/btnSend"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/LoginBtnLogin"
+                android:onClick="Login"
                 android:gravity="center"
                 android:textColor="@color/colorWhite"
-                android:background="@color/colorPrimary"
-                android:layout_marginHorizontal="20dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_margin="10dp">
+                android:background="@drawable/btnlogin_shape"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="10dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp">
 
+            <ImageButton
+                android:id="@+id/btnFacebook"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:onClick="Facebook_Login"
+                android:src="@drawable/ic_facebook"
+                android:gravity="center"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/text_view_shape"/>
 
-            </LinearLayout>
+            <ImageButton
+                android:id="@+id/btnGoogle"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_google"
+                android:onClick="Google_Login"
+                android:gravity="center"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/text_view_shape"/>
+
+        </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">JProject</string>
+    <string name="app_name">Project</string>
     <string name="LoginTittle">Entrar</string>
     <string name="LoginTVUser">Usuário:</string>
     <string name="LoginTVPassword">Senha:</string>
@@ -10,4 +10,8 @@
     <string name="LoginTstFaceDectFailed">Seu rosto ñao foi reconhecido</string>
     <string name="LoginTstFaceDectNoMatch">Seu rosto ñao foi reconhecido</string>
     <string name="DrawerOptionsTitle">Opções</string>
+    <string name="user_validation_title">Login</string>
+    <string name="user_create_title">User Creation</string>
+    <string name="user_update_title">User Update</string>
+    <string name="user_validation_description">We are validating your information...</string>
 </resources>
