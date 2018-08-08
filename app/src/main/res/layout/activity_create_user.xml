@@ -30,8 +30,7 @@
             <EditText
                 android:id="@+id/etUserName"
                 android:layout_width="match_parent"
-                android:inputType="text"
-                android:maxLength="9"
+                android:inputType="textEmailAddress"
                 android:layout_marginRight="22dp"
                 android:layout_marginLeft="22dp"
                 android:textColor="@color/colorBlack"

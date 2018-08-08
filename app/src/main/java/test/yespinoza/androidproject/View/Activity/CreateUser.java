@@ -36,7 +36,7 @@ public class CreateUser extends AppCompatActivity {
         getSupportActionBar().setTitle(getString(R.string.userCreationText));
         progress  = new ProgressDialog(this);
         oUser = Project.getInstance().getCurrentUser();
-        ((EditText) findViewById(R.id.etUserName)).setText(oUser.getId());
+        ((EditText) findViewById(R.id.etUserName)).setText(oUser.getEmail());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

@@ -45,11 +45,22 @@
                     android:maxWidth="50dp"
                     android:background="@drawable/text_view_shape"/>
 
+
+                <TextView
+                    android:id="@+id/tvEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="22dp"
+                    android:layout_gravity="center"
+                    android:text=""
+                    android:textColor="@color/colorDisabled"
+                    android:textSize="20dp" />
                 <TextView
                     android:id="@+id/tvIdNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="22dp"
+                    android:layout_marginHorizontal="22dp"
+                    android:layout_marginBottom="22dp"
                     android:text="@string/tvIdNumber"
                     android:textColor="@color/colorBlack"
                     android:textSize="20dp" />
@@ -129,27 +140,6 @@
                     android:background="@drawable/text_view_shape"
                     android:inputType="number"
                     android:maxLength="8"
-                    android:textColor="@color/colorBlack" />
-
-                <TextView
-                    android:id="@+id/tvEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="22dp"
-                    android:text="@string/tvEmail"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="20dp" />
-
-                <EditText
-                    android:id="@+id/etEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="22dp"
-                    android:layout_marginRight="22dp"
-                    android:enabled="false"
-                    android:paddingHorizontal="10dp"
-                    android:background="@drawable/text_view_shape"
-                    android:inputType="textEmailAddress"
                     android:textColor="@color/colorBlack" />
 
                 <TextView

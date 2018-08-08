@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -112,8 +113,7 @@ public class SettingsFragment extends Fragment {
             oUser.setPhone(Helper.TextFormat(editText.getText().toString()));
             editText = rootView.findViewById(R.id.etDateOfBirth);
             oUser.setDateOfBirth(editText.getText().toString().trim());
-            editText = rootView.findViewById(R.id.etEmail);
-            oUser.setEmail(editText.getText().toString().trim());
+            oUser.setEmail(((TextView)rootView.findViewById(R.id.tvEmail)).getText().toString());
             editText = rootView.findViewById(R.id.etAddress);
             oUser.setAddress(Helper.TextFormat(editText.getText().toString()));
 
@@ -195,11 +195,6 @@ public class SettingsFragment extends Fragment {
         editText.setTextColor(color);
         editText.setBackground(textViewShape);
 
-        editText = rootView.findViewById(R.id.etEmail);
-        editText.setEnabled(enable);
-        editText.setTextColor(color);
-        editText.setBackground(textViewShape);
-
         editText = rootView.findViewById(R.id.etAddress);
         editText.setEnabled(enable);
         editText.setTextColor(color);
@@ -210,12 +205,12 @@ public class SettingsFragment extends Fragment {
     private void loadUser(){
         User user = Project.getInstance().getCurrentUser();
         if(user != null) {
-            ((EditText)rootView.findViewById(R.id.etIdNumber)).setText(user.getId());
+            ((EditText)rootView.findViewById(R.id.etIdNumber)).setText(user.getIdNumber());
             ((EditText)rootView.findViewById(R.id.etName)).setText(user.getName());
             ((EditText)rootView.findViewById(R.id.etLastName)).setText(user.getLastName());
             ((EditText)rootView.findViewById(R.id.etDateOfBirth)).setText(user.getDateOfBirth());
             ((EditText)rootView.findViewById(R.id.etPhone)).setText(user.getPhone());
-            ((EditText)rootView.findViewById(R.id.etEmail)).setText(user.getEmail());
+            ((TextView)rootView.findViewById(R.id.tvEmail)).setText(user.getEmail());
             ((EditText)rootView.findViewById(R.id.etAddress)).setText(user.getAddress());
         }
     }

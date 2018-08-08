@@ -1,17 +1,17 @@
 package test.yespinoza.androidproject.Model.Entity;
 
 public class PlaceType {
-    private int code;
+    private int id;
     private String name;
     private String description;
     private String icon;
 
-    public int getCode() {
-        return code;
+    public int getId() {
+        return id;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

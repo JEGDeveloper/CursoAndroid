@@ -40,6 +40,7 @@ public class MapView extends FrameLayout implements GoogleMap.OnMarkerClickListe
     private ArrayList<Marker> markers;
     private ArrayList<Place> places;
     private MapViewEvents listener;
+    private Bitmap favoriteBitmap;
 
     public MapView(@NonNull Context context) {
         super(context);
@@ -118,17 +119,22 @@ public class MapView extends FrameLayout implements GoogleMap.OnMarkerClickListe
         }
     }
 
+    private Bitmap getFavoriteBitmap(){
+        if(favoriteBitmap == null)
+            favoriteBitmap = Helper.fromBase64ToBitmap_Scalad(Helper.FAVORITE_ICON, 96, 96);
+        return favoriteBitmap;
+    }
     public void addMarker(Place place) {
         MarkerOptions marker = new MarkerOptions();
         marker.position(new LatLng(place.getLatitude(), place.getLongitude()));
         marker.title(place.getName());
-        if(place.getIcon() == null || place.getIcon().equals(""))
-            marker.icon(BitmapDescriptorFactory.fromResource(
-                    place.isFavorite() ?
-                            R.drawable.ic_favorite :
-                            R.drawable.ic_location));
+
+        if(place.isFavorite())
+            marker.icon(BitmapDescriptorFactory.fromBitmap(getFavoriteBitmap()));
+        else if(place.getType().getIcon() == null || place.getType().getIcon().equals(""))
+            marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_location));
         else{
-            Bitmap bitmap = Helper.fromBase64ToBitmap_Scalad(place.getIcon(), 96, 96);
+            Bitmap bitmap = Helper.fromBase64ToBitmap_Scalad(place.getType().getIcon(), 96, 96);
             marker.icon(BitmapDescriptorFactory.fromBitmap(bitmap));
         }
         this.markers.add(this.googleMap.addMarker(marker));

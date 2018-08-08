@@ -59,7 +59,7 @@ public class FragmentLocation extends FragmentBase {
         loadPlaces();
     }
 
-    private void loadPlaces() {
+    public void loadPlaces() {
         try {
 
             ShowProgressDialog(getString(R.string.title_loading_data), getString(R.string.description_loading_data));
@@ -100,7 +100,7 @@ public class FragmentLocation extends FragmentBase {
     }
 
     public void showPlaceDetail(Place place) {
-
+        PlaceDetail.place = place;
         startActivity(new Intent(getContext(), PlaceDetail.class));
         //Toast.makeText(getContext(),String.format("{0}: {1}",place.getName(), place.getDescription()), Toast.LENGTH_SHORT).show();
         /*ViewPlaceDetailBinding binding = DataBindingUtil.inflate(activity.getLayoutInflater(), R.layout.view_place_detail, null, false);

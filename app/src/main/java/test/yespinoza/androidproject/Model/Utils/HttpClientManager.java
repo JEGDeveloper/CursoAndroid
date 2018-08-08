@@ -23,6 +23,7 @@ public class HttpClientManager {
     public static String BKN_GET_USER = "User/GetUser";
     public static String BKN_UPDATE_USER = "User/UpdateUser";
     public static String BKN_GET_PLACES = "Location/GetPlaces";
+    public static String BKN_MANAGE_FAVORITE_PLACE = "Location/ManageFavoritePlace";
     //endregion
     private RequestQueue cola;
 

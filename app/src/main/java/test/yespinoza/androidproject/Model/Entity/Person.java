@@ -9,6 +9,23 @@ public class  Person implements Serializable {
     private String lastName;
     private String email;
     private String phone;
+
+    public String getIdNumber() {
+        return idNumber;
+    }
+
+    public void setIdNumber(String idNumber) {
+        this.idNumber = idNumber;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
     private String birthday;
     private String address;
 
@@ -24,7 +41,7 @@ public class  Person implements Serializable {
     }
 
     public Person(String pId, String pName, String pLastName, String pEmail, String pPhone, String pDateOfBirth, String pAddress){
-        id = pId;
+        idNumber = pId;
         name = pName;
         lastName = pLastName;
         email = pEmail;
