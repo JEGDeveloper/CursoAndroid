@@ -1,5 +1,6 @@
 package test.yespinoza.androidproject.View.Fragment;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -26,6 +27,7 @@ import test.yespinoza.androidproject.Model.Utils.HttpApiResponse;
 import test.yespinoza.androidproject.Model.Utils.HttpClientManager;
 import test.yespinoza.androidproject.Project;
 import test.yespinoza.androidproject.R;
+import test.yespinoza.androidproject.View.Activity.AddPlace;
 import test.yespinoza.androidproject.View.Activity.Index;
 import test.yespinoza.androidproject.View.Activity.PlaceDetail;
 import test.yespinoza.androidproject.databinding.FragmentLocationBinding;
@@ -46,12 +48,20 @@ public class FragmentLocation extends FragmentBase {
             binding.mapView.setListener(this::showPlaceDetail);
             proxy = new HttpClientManager(getContext());
             progress  = new ProgressDialog(getContext());
+            binding.getRoot().findViewById(R.id.addPlace).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Toast.makeText(binding.getRoot().getContext(), "Prueba de Agregar",Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getContext(), AddPlace.class));
+                    getActivity().finish();
+                }
+            });
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         return binding.getRoot();
     }
-
 
     @Override
     public void onResume() {
@@ -102,29 +112,8 @@ public class FragmentLocation extends FragmentBase {
     public void showPlaceDetail(Place place) {
         PlaceDetail.place = place;
         startActivity(new Intent(getContext(), PlaceDetail.class));
-        //Toast.makeText(getContext(),String.format("{0}: {1}",place.getName(), place.getDescription()), Toast.LENGTH_SHORT).show();
-        /*ViewPlaceDetailBinding binding = DataBindingUtil.inflate(activity.getLayoutInflater(), R.layout.view_place_detail, null, false);
-        binding.setData(placeDetail);
-        ApplicationDialog.show(binding);
-        ApplicationDialog.addListener((View view) -> {
-            if (view == binding.ticket) {
-                ApplicationDialog.dismiss();
-                showFormTicket(placeDetail);
-            } else if (view == binding.waze)
-                openWaze(placeDetail);
-            else
-                ApplicationDialog.dismiss();
-        });*/
+        getActivity().finish();
     }
 
 
-    private void openWaze(Place place) {
-        try {
-            String uri = getString(R.string.waze, place.getLocation());
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(uri)));
-        } catch (Exception e) {
-            if (e instanceof ActivityNotFoundException)
-                Toast.makeText(getContext(),"La aplicación no está instalada.", Toast.LENGTH_SHORT).show();
-        }
-    }
 }

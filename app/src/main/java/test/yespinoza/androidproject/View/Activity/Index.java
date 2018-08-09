@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import test.yespinoza.androidproject.View.Fragment.FragmentFavoritePlaces;
 import test.yespinoza.androidproject.View.Fragment.FragmentLocation;
 import test.yespinoza.androidproject.View.Fragment.SettingsFragment;
 import test.yespinoza.androidproject.Project;
@@ -57,12 +58,18 @@ public class Index extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        TextView oTextView = (TextView)navigationView.findViewById(R.id.tvDrawerName);
-        if(oTextView != null)
-            oTextView.setText("Prueba");
-        oTextView = (TextView)navigationView.findViewById(R.id.tvDrawerEmail);
-        if(oTextView != null)
-            oTextView.setText("correo@correo.com");
+
+        Bundle extras = getIntent().getExtras();
+        String parent_activity_code;
+        if(extras != null) {
+            parent_activity_code = extras.getString("ACTIVITY_CODE");
+            if(parent_activity_code != null){
+                if(parent_activity_code.equals(PlaceDetail.ACTIVITY_CODE) || parent_activity_code.equals(AddPlace.ACTIVITY_CODE))
+                    mostrarFragment(new FragmentLocation());
+                if(parent_activity_code.equals(FragmentFavoritePlaces.ACTIVITY_CODE))
+                    mostrarFragment(new FragmentFavoritePlaces());
+            }
+        }
     }
 
     public static Index getInstance() {
@@ -93,7 +100,6 @@ public class Index extends AppCompatActivity
                 case R.id.action_settings:
                     mostrarFragment(new SettingsFragment());
                     onIndex = false;
-                    //Toast.makeText(this, getString(R.string.OptionNoImplemented), Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.action_location:
                     mostrarFragment(new FragmentLocation());
@@ -101,6 +107,10 @@ public class Index extends AppCompatActivity
                     break;
                 case R.id.action_logout:
                     Logout();
+                    break;
+                case R.id.action_favorite_locations:
+                    mostrarFragment(new FragmentFavoritePlaces());
+                    onIndex = false;
                     break;
                 default:
                     mostrarFragment(new Fragment());

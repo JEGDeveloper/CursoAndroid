@@ -14,4 +14,5 @@
     <string name="user_create_title">User Creation</string>
     <string name="user_update_title">User Update</string>
     <string name="user_validation_description">We are validating your information...</string>
+    <string name="tv_place_description">Descripción</string>
 </resources>

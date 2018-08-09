@@ -73,4 +73,5 @@
     <string name="description_loading_data">Please wait until we load the data...</string>
     <string name="waze_title">Install</string>
     <string name="waze_message">Would you like to install Waze?</string>
+    <string name="tv_place_description">Descripción</string>
 </resources>

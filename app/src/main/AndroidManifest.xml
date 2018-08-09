@@ -47,7 +47,8 @@
         <activity android:name=".View.Activity.CreateUser" />
         <activity android:name=".View.Activity.PersonalInfo" />
         <activity android:name=".View.Activity.ChangePassword" />
-        <activity android:name=".View.Activity.PlaceDetail"></activity>
+        <activity android:name=".View.Activity.PlaceDetail" />
+        <activity android:name=".View.Activity.AddPlace"></activity>
     </application>
 
 </manifest>

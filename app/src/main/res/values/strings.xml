@@ -88,4 +88,5 @@
     <string name="image_transition_name" translatable="false">ImageTransition</string>
     <string name="waze_store" translatable="false">https://play.google.com/store/apps/details?id=com.waze</string>
     <string name="insert_id">Debe ingresar la identificación para solicitar el ticket en la agencia</string>
+    <string name="tv_place_description">Descripción</string>
 </resources>

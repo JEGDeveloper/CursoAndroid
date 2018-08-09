@@ -69,4 +69,5 @@
     <string name="title_loading_data">Cargando Información</string>
     <string name="description_loading_data">Por favor espere mientras cargamos los datos...</string>
     <string name="waze_message">¿Desea instalar Waze?</string>
+    <string name="tv_place_description">Descripción</string>
 </resources>

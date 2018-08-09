@@ -21,11 +21,11 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.CardVi
         public ImageView image;
         public TextView name;
         public TextView description;
-        public CardViewHolder(View v) {
-            super(v);
-            image = (ImageView) v.findViewById(R.id.image);
-            name = (TextView) v.findViewById(R.id.name);
-            description = (TextView) v.findViewById(R.id.description);
+        public CardViewHolder(View view) {
+            super(view);
+            image = (ImageView) view.findViewById(R.id.image);
+            name = (TextView) view.findViewById(R.id.name);
+            description = (TextView) view.findViewById(R.id.description);
         }
     }
     public CardViewAdapter(List<CardView> items) {
@@ -38,9 +38,9 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.CardVi
     }
     @Override
     public CardViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext())
+        View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.card_view, viewGroup, false);
-        return new CardViewHolder(v);
+        return new CardViewHolder(view);
     }
     @Override
     public void onBindViewHolder(CardViewHolder viewHolder, int i) {

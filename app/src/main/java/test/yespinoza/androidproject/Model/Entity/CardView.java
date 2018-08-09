@@ -5,19 +5,18 @@ public class CardView {
     private String name;
     private String descritpion;
 
+    public CardView(String name, String descritpion, String image) {
+        this.image = image;
+        this.name = name;
+        this.descritpion = descritpion;
+    }
+
     public String getImage() {
         return image;
     }
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public CardView(String name, String descritpion) {
-        //this.imagen = imagen;
-        this.name = name;
-        this.descritpion = descritpion;
-
     }
 
     public String getName() {
