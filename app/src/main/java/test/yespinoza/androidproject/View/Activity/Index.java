@@ -1,10 +1,13 @@
 package test.yespinoza.androidproject.View.Activity;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -102,8 +105,12 @@ public class Index extends AppCompatActivity
                     onIndex = false;
                     break;
                 case R.id.action_location:
-                    mostrarFragment(new FragmentLocation());
-                    onIndex = false;
+                    if (ActivityCompat.checkSelfPermission(Project.getInstance().getCurrentActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(Project.getInstance().getCurrentActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 2022);
+                    }else {
+                        mostrarFragment(new FragmentLocation());
+                        onIndex = false;
+                    }
                     break;
                 case R.id.action_logout:
                     Logout();

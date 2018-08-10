@@ -105,7 +105,7 @@ public class MapView extends FrameLayout implements GoogleMap.OnMarkerClickListe
 
             LatLng latLng = new LatLng(10.0070624, -84.21732);
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-            googleMap.animateCamera(CameraUpdateFactory.zoomTo(12));
+            googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
             loadMarkers();
         }
     }

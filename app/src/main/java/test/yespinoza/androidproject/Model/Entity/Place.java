@@ -7,8 +7,8 @@ public class Place {
     private String name;
     private String description;
     private String image;
-    private float latitude;
-    private float longitude;
+    private double latitude;
+    private double longitude;
     private String phone;
     private String creationDate;
     private boolean isFavorite;
@@ -53,19 +53,19 @@ public class Place {
         this.image = image;
     }
 
-    public float getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(float latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public float getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(float longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 

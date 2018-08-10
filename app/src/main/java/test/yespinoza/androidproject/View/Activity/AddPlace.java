@@ -68,9 +68,15 @@ public class AddPlace extends AppCompatActivity {
         place.setName(name);
         place.setDescription(description);
         place.setPhone(phone);
+        place.setLatitude(FragmentLocation.latitude);
+        place.setLongitude(FragmentLocation.longitude);
 
-        if(name.equals("") || description.equals("") || phone.equals("")){
+        if(name.equals("") || description.equals("")){
             Toast.makeText(this,getString(R.string.completeFieldsMsg),Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(phone.length()>0 && phone.length()<8){
+            Toast.makeText(this, "Teléfono Inválido",Toast.LENGTH_SHORT).show();
             return;
         }
         try {
