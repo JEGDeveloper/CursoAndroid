@@ -4,7 +4,6 @@
     <string name="LoginTittle">Ingreso al Sistema</string>
     <string name="LoginTVUser">Usuario:</string>
     <string name="LoginTVPassword">Contraseña:</string>
-    <string name="LoginChkFaceDetection">Reconocimiento Facial</string>
     <string name="LoginBtnLogin">Ingresar</string>
     <string name="LoginTstNoUsername">Por favor, digite su usuario</string>
     <string name="LoginTstNoPassword">Por favor, digite su contraseña</string>
@@ -14,21 +13,12 @@
     <string name="nav_header_title">Cliente</string>
     <string name="nav_header_subtitle">correo@prueba.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="LoginTstFaceDectFailed">Su rostro no fue reconocido y se han agotado los intentos.</string>
-    <string name="LoginTstFaceDectNoMatch">Su rostro no fue reconocido.</string>
     <string name="DrawerOptionsTitle">Opciones</string>
     <string name="DrawerOptionLogout">Salir</string>
     <string name="DrawerOptionConfig">Configuración</string>
     <string name="OptionNoImplemented">¡Lo sentimos! La opción no está implementada aún.</string>
-    <string name="DialogWhatsTvPhoneNumber">Número de Teléfono:</string>
-    <string name="DialogWhatsTvMessage">Mensaje:</string>
-    <string name="DialogWhatsBtnAceptar">Enviar</string>
-    <string name="DialogWhatsBtnCancelar">Cancelar</string>
-    <string name="DialogWhatsTvTitle">Mensaje de WhatsApp</string>
-    <string name="NoInternetConnectionMsg">Por favor verifique su conexión a internet.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="LogoutDialogMessage">¿Seguro que desea salir?</string>
     <string name="LogoutDialogAcept">Salir</string>
     <string name="LogoutDialogDecline">No</string>
@@ -48,31 +38,16 @@
     <string name="passwordsNoMatch">Las contraseñas no coinciden</string>
     <string name="userCreationText">Creación de Usuario</string>
     <string name="somethingWentWrong">Algo ha salido mal. Intente la acción nuevamente.</string>
-    <string name="ProgDialTitlFaceRecognize">Analizando Rostro</string>
-    <string name="ProgDialMsgFaceRegnize">Espere un momento mientras analizamos su rostro...</string>
     <string name="btnSettingsEdit">Editar</string>
     <string name="btnSettingsSave">Guardar</string>
     <string name="SettingsSaveSuccess">¡Se ha actualizado correctamente!</string>
     <string name="SettingsSaveFailed">No se ha podido guardar la información. Por intente nuevamente...</string>
-    <string name="DrawerOptionHome">Inicio</string>
-    <string name="DrawerOptionResume">Generar Curriculum</string>
     <string name="tvCurrentPassword">Contraseña Actual</string>
     <string name="password_incorrect">La contraseña actual no es la correcta.</string>
     <string name="tvNewPassword">Contraseña Nueva</string>
     <string name="btnChangePassword">Cambiar Contraseña</string>
     <string name="invalidDate">Fecha inválida</string>
     <string name="invalidEmail">Correo inválido</string>
-    <string name="StudyNameHint">Estudio</string>
-    <string name="dateMonthYearHint">mm/aaaa</string>
-    <string name="studyFragmentTitle">Estudios</string>
-    <string name="jobsFragmentTitle">Experiencia Laboral</string>
-    <string name="referencesFragmentTitle">Referencias</string>
-    <string name="position">Puesto</string>
-    <string name="company">Empresa</string>
-    <string name="resume_title" translatable="false">Curriculum Vitae</string>
-    <string name="resume_tvIdNumber">Cédula:</string>
-    <string name="resume_contact">Contacto:</string>
-    <string name="resume_address">Dirección:</string>
     <string name="user_validation_title">Inicio de Sesión</string>
     <string name="user_create_title">Creando Usuario</string>
     <string name="user_update_title">Modificando Usuario</string>
@@ -81,12 +56,6 @@
     <string name="DrawerOptionsFavoritePlaces">Sitios Favoritos</string>
     <string name="title_loading_data">Cargando Información</string>
     <string name="description_loading_data">Por favor espere mientras cargamos los datos...</string>
-    <string name="waze_title">Instalar</string>
-    <string name="call_intent" translatable="false">"tel:"%1$s</string>
-    <string name="waze_message">¿Desea instalar Waze?</string>
     <string name="waze" translatable="false">waze://?ll=%1$s&amp;navigate=yes</string>
-    <string name="image_transition_name" translatable="false">ImageTransition</string>
-    <string name="waze_store" translatable="false">https://play.google.com/store/apps/details?id=com.waze</string>
-    <string name="insert_id">Debe ingresar la identificación para solicitar el ticket en la agencia</string>
     <string name="tv_place_description">Descripción</string>
 </resources>

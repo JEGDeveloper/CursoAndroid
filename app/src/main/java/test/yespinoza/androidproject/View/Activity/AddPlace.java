@@ -71,6 +71,7 @@ public class AddPlace extends AppCompatActivity {
 
         if(name.equals("") || description.equals("") || phone.equals("")){
             Toast.makeText(this,getString(R.string.completeFieldsMsg),Toast.LENGTH_SHORT).show();
+            return;
         }
         try {
             ShowProgressDialog(getString(R.string.title_loading_data), getString(R.string.description_loading_data));

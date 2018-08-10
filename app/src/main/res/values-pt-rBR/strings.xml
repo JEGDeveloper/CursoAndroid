@@ -7,8 +7,6 @@
     <string name="LoginBtnLogin">Entrar</string>
     <string name="LoginTstNoUsername">Por favor, digite sau usuário</string>
     <string name="LoginTstNoPassword">Por favor, digite sau senha</string>
-    <string name="LoginTstFaceDectFailed">Seu rosto ñao foi reconhecido</string>
-    <string name="LoginTstFaceDectNoMatch">Seu rosto ñao foi reconhecido</string>
     <string name="DrawerOptionsTitle">Opções</string>
     <string name="user_validation_title">Login</string>
     <string name="user_create_title">User Creation</string>
