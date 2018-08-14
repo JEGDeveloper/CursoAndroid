@@ -1,12 +1,18 @@
 package test.yespinoza.androidproject.View.Activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -15,12 +21,12 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+
 import test.yespinoza.androidproject.Model.Entity.Place;
-import test.yespinoza.androidproject.Model.Request.ManageFavoritePlaceRequest;
 import test.yespinoza.androidproject.Model.Response.BaseResponse;
 import test.yespinoza.androidproject.Model.Utils.HttpApiResponse;
 import test.yespinoza.androidproject.Model.Utils.HttpClientManager;
-import test.yespinoza.androidproject.Project;
 import test.yespinoza.androidproject.R;
 import test.yespinoza.androidproject.View.Fragment.FragmentLocation;
 
@@ -28,6 +34,10 @@ public class AddPlace extends AppCompatActivity {
     public static String ACTIVITY_CODE = "98";
     private ProgressDialog progress;
     private HttpClientManager proxy;
+    public ImageView img;
+    public Intent i;
+    public Bitmap bmp;
+    public final static int CONS=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +46,19 @@ public class AddPlace extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         progress  = new ProgressDialog(this);
         proxy = new HttpClientManager(this);
+        img=(ImageView)findViewById(R.id.img_place_detail);
     }
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode,resultCode,data);
+        if (resultCode == Activity.RESULT_OK)
+        {
+            Bundle ext = data.getExtras();
+            bmp = (Bitmap)ext.get("data");
+            img.setImageBitmap(bmp);
+        }
+    }
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, Index.class);
@@ -45,7 +66,6 @@ public class AddPlace extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -58,7 +78,6 @@ public class AddPlace extends AppCompatActivity {
         }
         return true;
     }
-
     public void createPlace(View view){
         String name = ((EditText)findViewById(R.id.et_place_name)).getText().toString().trim();
         String description = ((EditText)findViewById(R.id.et_place_description)).getText().toString().trim();
@@ -117,5 +136,34 @@ public class AddPlace extends AppCompatActivity {
         progress.setMessage(message);
         progress.setCancelable(false);
         progress.show();
+    }
+    public void addImage(View v){
+            int id;
+        id=v.getId();
+        switch (id){
+            case R.id.img_place_detail:
+            i= new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(i,CONS);
+            break;
+        }
+    }
+
+    public void convertImageToBase64(Bitmap bitmap){
+        ImageView image =(ImageView)findViewById(R.id.img_place_detail);
+        //encode image to base64 string
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+    }
+
+    public void convertBase64ToImage(String pCadena){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        byte[] imageBytes = baos.toByteArray();
+        String imageString = pCadena;
+        //decode base64 string to image
+        imageBytes = Base64.decode(imageString, Base64.DEFAULT);
+        Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+        img.setImageBitmap(decodedImage);
     }
 }
