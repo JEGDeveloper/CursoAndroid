@@ -7,12 +7,12 @@
     <string name="LoginBtnLogin">Ingresar</string>
     <string name="LoginTstNoUsername">Por favor, digite su usuario</string>
     <string name="LoginTstNoPassword">Por favor, digite su contraseña</string>
-    <string name="title_activity_index">Index</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_index">Indice</string>
+    <string name="navigation_drawer_open">Abrir el navegador</string>
+    <string name="navigation_drawer_close">Cerrar el Navegador</string>
     <string name="nav_header_title">Cliente</string>
     <string name="nav_header_subtitle">correo@prueba.com</string>
-    <string name="nav_header_desc">Navigation header</string>
+    <string name="nav_header_desc">Encabezado del navegador</string>
     <string name="DrawerOptionsTitle">Opciones</string>
     <string name="DrawerOptionLogout">Salir</string>
     <string name="DrawerOptionConfig">Configuración</string>
@@ -56,6 +56,11 @@
     <string name="DrawerOptionsFavoritePlaces">Sitios Favoritos</string>
     <string name="title_loading_data">Cargando Información</string>
     <string name="description_loading_data">Por favor espere mientras cargamos los datos...</string>
-    <string name="waze" translatable="false">waze://?ll=%1$s&amp;navigate=yes</string>
     <string name="tv_place_description">Descripción</string>
+    <string name="encenderGPS">Por favor encienda el GPS del dispositivo</string>
+    <string name="sinFavoritos">Estimado usuario, usted no posee sitios favoritos</string>
+    <string name="nuevoSitio">Nuevo Sitio</string>
+    <string name="waze" translatable="false">waze://?ll=%1$s&amp;navigate=yes</string>
+    <string name="sinConexion">No hay conexion de internet</string>
+
 </resources>
