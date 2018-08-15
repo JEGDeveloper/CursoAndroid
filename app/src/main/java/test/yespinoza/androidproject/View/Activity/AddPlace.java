@@ -42,7 +42,7 @@ public class AddPlace extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_place);
-        getSupportActionBar().setTitle("Nuevo Sitio");
+        getSupportActionBar().setTitle(getString(R.string.nuevoSitio));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         progress  = new ProgressDialog(this);
         proxy = new HttpClientManager(this);

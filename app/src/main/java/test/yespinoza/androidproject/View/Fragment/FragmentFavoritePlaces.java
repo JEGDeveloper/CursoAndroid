@@ -1,9 +1,7 @@
 package test.yespinoza.androidproject.View.Fragment;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,8 +26,6 @@ import test.yespinoza.androidproject.Model.Entity.Place;
 import test.yespinoza.androidproject.Model.Response.PlacesResponse;
 import test.yespinoza.androidproject.Model.Utils.HttpApiResponse;
 import test.yespinoza.androidproject.Model.Utils.HttpClientManager;
-import test.yespinoza.androidproject.Model.Utils.SwipeListener;
-import test.yespinoza.androidproject.Model.Utils.SwipeableRecyclerViewTouchListener;
 import test.yespinoza.androidproject.Project;
 import test.yespinoza.androidproject.R;
 import test.yespinoza.androidproject.View.Activity.PlaceDetail;
@@ -94,7 +90,7 @@ public class FragmentFavoritePlaces extends Fragment {
                         //recycler.addOnItemTouchListener( new SwipeableRecyclerViewTouchListener(recycler, new SwipeListener(adapter, items)));
 
                         if(places.isEmpty()){
-                            Toast.makeText(rootView.getContext(), "Estimado usuario, usted no posee sitios favoritos.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(rootView.getContext(), getString(R.string.sinFavoritos), Toast.LENGTH_SHORT).show();
                         }
                     } else
                         Toast.makeText(getContext(), getString(R.string.somethingWentWrong), Toast.LENGTH_SHORT).show();

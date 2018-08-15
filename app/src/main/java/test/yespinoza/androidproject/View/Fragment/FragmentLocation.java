@@ -1,16 +1,13 @@
 package test.yespinoza.androidproject.View.Fragment;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -65,7 +62,7 @@ public class FragmentLocation extends FragmentBase {
                     //Toast.makeText(binding.getRoot().getContext(), "Prueba de Agregar",Toast.LENGTH_SHORT).show();
                     locationManager = (LocationManager) getActivity().getSystemService(getActivity().LOCATION_SERVICE);
                     if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                        Toast.makeText(getContext(),"Por favor encienda el GPS del dispositivo",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(),R.string.encenderGPS,Toast.LENGTH_SHORT).show();
                     }else {
                         getLocation();
                         startActivity(new Intent(getContext(), AddPlace.class));
@@ -151,7 +148,7 @@ public class FragmentLocation extends FragmentBase {
                 }
                 //locationManager.requestLocationUpdates(provider, 20000, 0, this);
             } else
-                Toast.makeText(getContext(),"Por favor encienda el GPS del dispositivo",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),getString(R.string.encenderGPS),Toast.LENGTH_SHORT).show();
 
         } catch (Exception e) {
             Toast.makeText(getContext(),getString(R.string.somethingWentWrong),Toast.LENGTH_SHORT).show();

@@ -49,4 +49,15 @@
     <string name="title_loading_data">Loading Data</string>
     <string name="description_loading_data">Please wait until we load the data...</string>
     <string name="tv_place_description">Descripción</string>
+    <string name="title_activity_index">Index</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Client</string>
+    <string name="nav_header_subtitle">correo@prueba.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="waze" translatable="false">waze://?ll=%1$s&amp;navigate=yes</string>
+    <string name="encenderGPS">Please turn on the GPS of the device</string>
+    <string name="sinFavoritos">Dear user, you do not own favorite sites</string>
+    <string name="nuevoSitio">New Site</string>
+    <string name="sinConexion">No internet Connection</string>
 </resources>

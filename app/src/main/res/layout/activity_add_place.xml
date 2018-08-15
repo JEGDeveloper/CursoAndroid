@@ -26,11 +26,12 @@
                     android:id="@+id/img_place_detail"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:src="@drawable/ic_add_photo"
                     android:layout_gravity="center"
                     android:layout_marginTop="15dp"
+                    android:background="@color/colorWhite"
+                    android:onClick="addImage"
                     android:scaleType="fitCenter"
-                    android:background="@color/colorWhite"/>
+                    android:src="@drawable/ic_add_photo" />
 
                 <TextView
                     android:id="@+id/tv_place_name"

@@ -45,4 +45,15 @@
     <string name="title_loading_data">Cargando Información</string>
     <string name="description_loading_data">Por favor espere mientras cargamos los datos...</string>
     <string name="tv_place_description">Descripción</string>
+    <string name="sinConexion">No hay conexion de internet</string>
+    <string name="encenderGPS">Por favor encienda el GPS del dispositivo</string>
+    <string name="sinFavoritos">Estimado usuario, usted no posee sitios favoritos</string>
+    <string name="nuevoSitio">Nuevo Sitio</string>
+    <string name="title_activity_index">Indice</string>
+    <string name="navigation_drawer_open">Abrir el navegador</string>
+    <string name="navigation_drawer_close">Cerrar el Navegador</string>
+    <string name="nav_header_title">Cliente</string>
+    <string name="nav_header_subtitle">correo@prueba.com</string>
+    <string name="nav_header_desc">Encabezado del navegador</string>
+    <string name="waze" translatable="false">waze://?ll=%1$s&amp;navigate=yes</string>
 </resources>

@@ -19,6 +19,8 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
+import test.yespinoza.androidproject.R;
+
 /*
 import tns.coope_ande.R;
 import tns.coope_ande.databinding.ViewMessageBinding;
@@ -34,7 +36,7 @@ public class FragmentBase extends Fragment {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         boolean networkConnetion = activeNetworkInfo != null && activeNetworkInfo.isConnected();
         if (!networkConnetion) {
-            Toast.makeText(getActivity(), "No internet Connection", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getString(R.string.sinConexion), Toast.LENGTH_SHORT).show();
             return false;
         } else {
             return true;
