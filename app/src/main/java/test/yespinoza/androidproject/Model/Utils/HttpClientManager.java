@@ -26,6 +26,9 @@ public class HttpClientManager {
     public static String BKN_GET_FAVORITE_PLACES = "Location/GetFavoritePlaces";
     public static String BKN_MANAGE_FAVORITE_PLACE = "Location/ManageFavoritePlace";
     public static String BKN_CREATE_PLACE = "Location/CreatePlace";
+    public static String BKN_SET_PLACE_SCORE = "Location/SetPlaceScore";
+    public static String BKN_GET_COMMENTS = "Location/GetComments";
+    public static String BKN_CREATE_COMMENT = "Location/CreateComment";
     //endregion
     private RequestQueue cola;
 

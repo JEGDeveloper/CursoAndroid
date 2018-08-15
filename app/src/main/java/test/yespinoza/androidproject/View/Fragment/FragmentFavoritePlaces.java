@@ -7,7 +7,9 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
@@ -30,10 +32,10 @@ import test.yespinoza.androidproject.Project;
 import test.yespinoza.androidproject.R;
 import test.yespinoza.androidproject.View.Activity.PlaceDetail;
 
-public class FragmentFavoritePlaces extends Fragment {
+public class FragmentFavoritePlaces extends Fragment implements CardViewAdapter.OnItemClickListener {
     public static String ACTIVITY_CODE = "96";
     public static View rootView;
-    public static RecyclerView.Adapter adapter;
+    public static CardViewAdapter adapter;
     private static List<CardView> items;
     private RecyclerView.LayoutManager lManager;
     private RecyclerView recycler;
@@ -79,13 +81,8 @@ public class FragmentFavoritePlaces extends Fragment {
                         lManager = new LinearLayoutManager(rootView.getContext());
                         recycler.setLayoutManager(lManager);
                         adapter = new CardViewAdapter(items);
+                        adapter.setOnItemClickListener(FragmentFavoritePlaces.this);
                         recycler.setAdapter(adapter);
-                        recycler.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                //showPlaceDetail(getPo)
-                            }
-                        });
                         /**Swipe to Delete**/
                         //recycler.addOnItemTouchListener( new SwipeableRecyclerViewTouchListener(recycler, new SwipeListener(adapter, items)));
 
@@ -116,7 +113,11 @@ public class FragmentFavoritePlaces extends Fragment {
 
     public void showPlaceDetail(Place place) {
         PlaceDetail.place = place;
-        startActivity(new Intent(getContext(), PlaceDetail.class));
+        place.setFavorite(true);
+        Intent oIntet = new Intent(getContext(), PlaceDetail.class);
+        oIntet.putExtra("ACTIVITY_CODE",ACTIVITY_CODE);
+        startActivity(oIntet);
+
         getActivity().finish();
     }
     private void ShowProgressDialog(String tittle, String message){
@@ -126,4 +127,8 @@ public class FragmentFavoritePlaces extends Fragment {
         progress.show();
     }
 
+    @Override
+    public void OnItemClick(int position) {
+        showPlaceDetail(places.get(position));
+    }
 }

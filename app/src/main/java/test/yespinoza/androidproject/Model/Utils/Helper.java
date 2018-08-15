@@ -3,8 +3,12 @@ package test.yespinoza.androidproject.Model.Utils;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+import android.widget.ImageView;
 
+import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
+
+import test.yespinoza.androidproject.R;
 
 public class Helper {
 
@@ -70,13 +74,24 @@ public class Helper {
         }
     }
 
-    public static Bitmap fromBase64ToBitmap_Scalad(String encode, int dstWidth, int dstHeight){
+    public static Bitmap fromBase64ToBitmap_Scalad(String encode, int dstWidth, int dstHeight) {
         try {
             byte[] decodedString = Base64.decode(encode, Base64.DEFAULT);
             Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             return Bitmap.createScaledBitmap(bitmap, 96, 96, false);
+        } catch (Exception ex) {
+            return null;
         }
-        catch (Exception ex){
+    }
+
+
+    public static String fromBitmapToBase64(Bitmap bitmap){
+        try{
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] imageBytes = baos.toByteArray();
+            return Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        }catch(Exception ex){
             return null;
         }
     }

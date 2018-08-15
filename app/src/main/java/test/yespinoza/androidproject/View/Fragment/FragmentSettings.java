@@ -33,7 +33,7 @@ import test.yespinoza.androidproject.Model.Utils.HttpClientManager;
 import test.yespinoza.androidproject.Project;
 import test.yespinoza.androidproject.R;
 
-public class SettingsFragment extends Fragment {
+public class FragmentSettings extends Fragment {
     private View rootView;
     private int blackColor;
     private int disabledColor;
@@ -44,12 +44,12 @@ public class SettingsFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public SettingsFragment() {
+    public FragmentSettings() {
         // Required empty public constructor
     }
 
-    public static SettingsFragment newInstance() {
-        SettingsFragment fragment = new SettingsFragment();
+    public static FragmentSettings newInstance() {
+        FragmentSettings fragment = new FragmentSettings();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;

@@ -1,17 +1,23 @@
 package test.yespinoza.androidproject.View.Activity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Image;
+import android.media.Rating;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +27,9 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
+import test.yespinoza.androidproject.Model.Entity.Comment;
 import test.yespinoza.androidproject.Model.Entity.Place;
+import test.yespinoza.androidproject.Model.Request.CommentPlaceRequest;
 import test.yespinoza.androidproject.Model.Request.ManageFavoritePlaceRequest;
 import test.yespinoza.androidproject.Model.Response.BaseResponse;
 import test.yespinoza.androidproject.Model.Response.PlacesResponse;
@@ -40,6 +48,7 @@ public class PlaceDetail extends AppCompatActivity {
     TextView et_place_description;
     TextView et_place_phone;
     ImageView img_place_detail;
+    RatingBar ratingBar;
     private ProgressDialog progress;
     private HttpClientManager proxy;
     private String parent_activity_code;
@@ -56,6 +65,14 @@ public class PlaceDetail extends AppCompatActivity {
         et_place_name = findViewById(R.id.et_place_name);
         et_place_description = findViewById(R.id.et_place_description);
         et_place_phone = findViewById(R.id.et_place_phone);
+        ratingBar = findViewById(R.id.ratingBar);
+        ratingBar.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                setPlaceScore(v);
+                return false;
+            }
+        });
         showComments();
         Bundle extras = getIntent().getExtras();
         if(extras != null)
@@ -79,7 +96,7 @@ public class PlaceDetail extends AppCompatActivity {
             case android.R.id.home:
                 place=null;
                 Intent intent = new Intent(this, Index.class);
-                intent.putExtra("ACTIVITY_CODE", ACTIVITY_CODE);
+                intent.putExtra("ACTIVITY_CODE", parent_activity_code != null ? parent_activity_code : ACTIVITY_CODE);
                 startActivity(intent);
                 finish();
                 break;
@@ -91,6 +108,7 @@ public class PlaceDetail extends AppCompatActivity {
             et_place_name.setText(place.getName());
             et_place_description.setText(place.getDescription());
             et_place_phone.setText(place.getPhone());
+            ratingBar.setRating(Float.parseFloat(""+place.getScore()));
             if(place.getImage() != null && !place.getImage().equals(""))
             img_place_detail.setImageBitmap(Helper.fromBase64ToBitmap(place.getImage()));
         }catch (Exception ex){
@@ -119,7 +137,7 @@ public class PlaceDetail extends AppCompatActivity {
 
     public void ManageFavoritePlace(View view) {
         try {
-            ShowProgressDialog(getString(R.string.title_loading_data), getString(R.string.description_loading_data));
+            //ShowProgressDialog(getString(R.string.title_loading_data), getString(R.string.description_loading_data));
 
             Response.Listener<JSONObject> callBack_OK = new Response.Listener<JSONObject>() {
                 @Override
@@ -132,7 +150,7 @@ public class PlaceDetail extends AppCompatActivity {
                         place.setFavorite(!place.isFavorite());
                         Toast.makeText(getApplicationContext(), getString(R.string.somethingWentWrong), Toast.LENGTH_SHORT).show();
                     }
-                    progress.dismiss();
+                    //progress.dismiss();
                 }
             };
 
@@ -141,16 +159,118 @@ public class PlaceDetail extends AppCompatActivity {
                 public void onErrorResponse(VolleyError error) {
                     place.setFavorite(!place.isFavorite());
                     Toast.makeText(getApplicationContext(), getString(R.string.somethingWentWrong), Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
+                    //progress.dismiss();
                 }
             };
             ManageFavoritePlaceRequest oRequest = new ManageFavoritePlaceRequest();
             oRequest.setPlaceId(place.getId());
             oRequest.setUserName(Project.getInstance().getCurrentUser().getUserName());
             place.setFavorite(!place.isFavorite());
+
+            oRequest.setScore(ratingBar.getRating());
             proxy.BACKEND_API_POST(HttpClientManager.BKN_MANAGE_FAVORITE_PLACE, new JSONObject(new Gson().toJson(oRequest)), callBack_OK, callBack_ERROR);
         } catch (Exception oException) {
             progress.dismiss();
+        }
+    }
+
+    public void setPlaceScore(View view) {
+        try {
+            //ShowProgressDialog(getString(R.string.title_loading_data), getString(R.string.description_loading_data));
+
+            Response.Listener<JSONObject> callBack_OK = new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    BaseResponse oResponse = new Gson().fromJson(response.toString(), BaseResponse.class);
+                    if (Integer.parseInt(oResponse.getCode()) == HttpApiResponse.SUCCES_CODE) {
+                        ((ImageView) findViewById(R.id.btnLike)).setImageDrawable(getDrawable(place.isFavorite() ? R.drawable.ic_like : R.drawable.ic_dislike));
+                        //finish();
+                    } else {
+                        //Toast.makeText(getApplicationContext(), getString(R.string.somethingWentWrong), Toast.LENGTH_SHORT).show();
+                    }
+                    //progress.dismiss();
+                }
+            };
+
+            Response.ErrorListener callBack_ERROR = new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    //place.setFavorite(!place.isFavorite());
+                    //oast.makeText(getApplicationContext(), getString(R.string.somethingWentWrong), Toast.LENGTH_SHORT).show();
+                    //progress.dismiss();
+                }
+            };
+            ManageFavoritePlaceRequest oRequest = new ManageFavoritePlaceRequest();
+            oRequest.setPlaceId(place.getId());
+            oRequest.setUserName(Project.getInstance().getCurrentUser().getUserName());
+            oRequest.setScore(ratingBar.getRating());
+            proxy.BACKEND_API_POST(HttpClientManager.BKN_SET_PLACE_SCORE, new JSONObject(new Gson().toJson(oRequest)), callBack_OK, callBack_ERROR);
+        } catch (Exception oException) {
+            progress.dismiss();
+        }
+    }
+
+    public void makeComment(View view){
+        try {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(PlaceDetail.this);
+
+            alertDialogBuilder.setTitle("Agregar Comentario");
+            View dialogView = LayoutInflater.from(PlaceDetail.this).inflate(R.layout.activity_dialog_message, null);
+            alertDialogBuilder
+                    .setMessage("Digite su comentario y presione la opción de agregar")
+                    .setView(dialogView)
+                    .setPositiveButton("Agregar", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            EditText et_comment = dialogView.findViewById(R.id.et_comment);
+                            if (et_comment.getText().toString().trim().equals("")) {
+                                Toast.makeText(getApplicationContext(), getString(R.string.completeFieldsMsg), Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            try {
+                                ShowProgressDialog(getString(R.string.title_loading_data), getString(R.string.description_loading_data));
+
+                                Response.Listener<JSONObject> callBack_OK = new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        BaseResponse oResponse = new Gson().fromJson(response.toString(), BaseResponse.class);
+                                        if (Integer.parseInt(oResponse.getCode()) == HttpApiResponse.SUCCES_CODE) {
+                                            //Cargar Comentarios
+                                            dialog.cancel();
+                                        } else {
+                                            Toast.makeText(getApplicationContext(), getString(R.string.somethingWentWrong), Toast.LENGTH_SHORT).show();
+                                        }
+                                        progress.dismiss();
+                                    }
+                                };
+
+                                Response.ErrorListener callBack_ERROR = new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        //place.setFavorite(!place.isFavorite());
+                                        Toast.makeText(getApplicationContext(), getString(R.string.somethingWentWrong), Toast.LENGTH_SHORT).show();
+                                        progress.dismiss();
+                                    }
+                                };
+                                CommentPlaceRequest oRequest = new CommentPlaceRequest();
+                                oRequest.setPlaceId(place.getId());
+                                oRequest.setUserName(Project.getInstance().getCurrentUser().getUserName());
+                                oRequest.setMessage(et_comment.getText().toString().trim());
+                                proxy.BACKEND_API_POST(HttpClientManager.BKN_CREATE_COMMENT, new JSONObject(new Gson().toJson(oRequest)), callBack_OK, callBack_ERROR);
+                            } catch (Exception oException) {
+                                Toast.makeText(getApplicationContext(), getString(R.string.somethingWentWrong), Toast.LENGTH_SHORT).show();
+                                progress.dismiss();
+                            }
+                        }
+                    })
+                    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        }catch (Exception ex){
+            Toast.makeText(getApplicationContext(), getString(R.string.somethingWentWrong), Toast.LENGTH_SHORT).show();
         }
     }
 

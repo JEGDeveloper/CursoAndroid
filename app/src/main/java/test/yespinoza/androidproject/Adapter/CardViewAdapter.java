@@ -16,7 +16,17 @@ import test.yespinoza.androidproject.R;
 
 public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.CardViewHolder> {
     private List<CardView> items;
-    public static class CardViewHolder extends RecyclerView.ViewHolder {
+    private OnItemClickListener listener;
+
+    public interface OnItemClickListener{
+        void OnItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.listener = listener;
+    }
+
+    public class CardViewHolder extends RecyclerView.ViewHolder {
         // Campos respectivos de un item
         public ImageView image;
         public TextView name;
@@ -26,7 +36,19 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.CardVi
             image = (ImageView) view.findViewById(R.id.image);
             name = (TextView) view.findViewById(R.id.name);
             description = (TextView) view.findViewById(R.id.description);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(listener != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION){
+                            listener.OnItemClick(position);
+                        }
+                    }
+                }
+            });
         }
+
     }
     public CardViewAdapter(List<CardView> items) {
         this.items = items;

@@ -24,7 +24,7 @@ import android.widget.Toast;
 
 import test.yespinoza.androidproject.View.Fragment.FragmentFavoritePlaces;
 import test.yespinoza.androidproject.View.Fragment.FragmentLocation;
-import test.yespinoza.androidproject.View.Fragment.SettingsFragment;
+import test.yespinoza.androidproject.View.Fragment.FragmentSettings;
 import test.yespinoza.androidproject.Project;
 import test.yespinoza.androidproject.R;
 
@@ -69,6 +69,9 @@ public class Index extends AppCompatActivity
             if(parent_activity_code != null){
                 if(parent_activity_code.equals(PlaceDetail.ACTIVITY_CODE) || parent_activity_code.equals(AddPlace.ACTIVITY_CODE))
                     mostrarFragment(new FragmentLocation());
+                if(parent_activity_code.equals(FragmentFavoritePlaces.ACTIVITY_CODE)){
+                    mostrarFragment(new FragmentFavoritePlaces());
+                }
                 if(parent_activity_code.equals(FragmentFavoritePlaces.ACTIVITY_CODE))
                     mostrarFragment(new FragmentFavoritePlaces());
             }
@@ -101,7 +104,7 @@ public class Index extends AppCompatActivity
 
             switch (menuItemId) {
                 case R.id.action_settings:
-                    mostrarFragment(new SettingsFragment());
+                    mostrarFragment(new FragmentSettings());
                     onIndex = false;
                     break;
                 case R.id.action_location:

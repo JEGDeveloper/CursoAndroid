@@ -60,4 +60,5 @@
     <string name="sinFavoritos">Dear user, you do not own favorite sites</string>
     <string name="nuevoSitio">New Site</string>
     <string name="sinConexion">No internet Connection</string>
+    <string name="invalid_phone">Invalid Phone Number</string>
 </resources>

@@ -12,6 +12,24 @@ public class Place {
     private String phone;
     private String creationDate;
     private boolean isFavorite;
+    private double score;
+    private String userName;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
+    }
 
     public int getId() {
         return id;

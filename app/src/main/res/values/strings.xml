@@ -62,5 +62,6 @@
     <string name="nuevoSitio">Nuevo Sitio</string>
     <string name="waze" translatable="false">waze://?ll=%1$s&amp;navigate=yes</string>
     <string name="sinConexion">No hay conexion de internet</string>
+    <string name="invalid_phone">Teléfono Inválido</string>
 
 </resources>
