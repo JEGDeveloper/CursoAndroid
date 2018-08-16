@@ -10,6 +10,8 @@ import android.media.Rating;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -27,12 +29,21 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
+import test.yespinoza.androidproject.Adapter.CardViewAdapter;
+import test.yespinoza.androidproject.Adapter.CommentAdapter;
+import test.yespinoza.androidproject.Model.Entity.CardView;
 import test.yespinoza.androidproject.Model.Entity.Comment;
 import test.yespinoza.androidproject.Model.Entity.Place;
+import test.yespinoza.androidproject.Model.Entity.UserComment;
 import test.yespinoza.androidproject.Model.Request.CommentPlaceRequest;
 import test.yespinoza.androidproject.Model.Request.ManageFavoritePlaceRequest;
 import test.yespinoza.androidproject.Model.Response.BaseResponse;
 import test.yespinoza.androidproject.Model.Response.PlacesResponse;
+import test.yespinoza.androidproject.Model.Response.UserCommentResponse;
 import test.yespinoza.androidproject.Model.Utils.Helper;
 import test.yespinoza.androidproject.Model.Utils.HttpApiResponse;
 import test.yespinoza.androidproject.Model.Utils.HttpClientManager;
@@ -44,14 +55,18 @@ import test.yespinoza.androidproject.View.Fragment.FragmentLocation;
 public class PlaceDetail extends AppCompatActivity {
     public static String ACTIVITY_CODE = "97";
     public static Place place;
-    TextView et_place_name;
-    TextView et_place_description;
-    TextView et_place_phone;
-    ImageView img_place_detail;
-    RatingBar ratingBar;
+    private TextView et_place_name;
+    private TextView et_place_description;
+    private TextView et_place_phone;
+    private ImageView img_place_detail;
+    private RatingBar ratingBar;
+    private CommentAdapter adapter;
+    private RecyclerView.LayoutManager lManager;
+    private RecyclerView recycler;
     private ProgressDialog progress;
     private HttpClientManager proxy;
     private String parent_activity_code;
+    private ArrayList<UserComment> listComments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +74,12 @@ public class PlaceDetail extends AppCompatActivity {
         setContentView(R.layout.activity_place_detail);
         getSupportActionBar().setTitle("Detalle del Sitio");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        progress  = new ProgressDialog(this);
+        Project.getInstance().setCurrentActivity(this);
+        listComments = new ArrayList<>();
+        adapter = null;
         proxy = new HttpClientManager(this);
+        progress = new ProgressDialog(this);
+        recycler = findViewById(R.id.recycler_comments);
         img_place_detail = findViewById(R.id.img_place_detail);
         et_place_name = findViewById(R.id.et_place_name);
         et_place_description = findViewById(R.id.et_place_description);
@@ -103,6 +122,7 @@ public class PlaceDetail extends AppCompatActivity {
         }
         return true;
     }
+
     private void LoadPlace(){
         try{
             et_place_name.setText(place.getName());
@@ -117,11 +137,50 @@ public class PlaceDetail extends AppCompatActivity {
     }
 
     private void showComments(){
-        if(true){
-            //No comments
-            ((TextView)findViewById(R.id.tv_place_no_comments)).setVisibility(View.VISIBLE);
-        }else{
-            //Cargar CardViews
+        try {
+            ShowProgressDialog(getString(R.string.title_loading_data), getString(R.string.description_loading_data));
+
+            Response.Listener<JSONObject> callBack_OK = new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    //PlacesResponse oResponse = new Gson().fromJson(response.toString(), PlacesResponse.class);
+                    UserCommentResponse oResponse = new Gson().fromJson(response.toString(), UserCommentResponse.class);
+                    if (Integer.parseInt(oResponse.getCode()) == HttpApiResponse.SUCCES_CODE) {
+                        listComments = oResponse.getData();
+                        recycler.setHasFixedSize(true);
+                        lManager = new LinearLayoutManager(Project.getInstance().getCurrentActivity());
+                        recycler.setLayoutManager(lManager);
+                        adapter = new CommentAdapter(listComments);
+                        //adapter.setOnItemClickListener(FragmentFavoritePlaces.this);
+                        recycler.setAdapter(adapter);
+                        /**Swipe to Delete**/
+                        //recycler.addOnItemTouchListener( new SwipeableRecyclerViewTouchListener(recycler, new SwipeListener(adapter, items)));
+
+                        if(listComments.isEmpty()){
+                            ((TextView) findViewById(R.id.tv_place_no_comments)).setVisibility(View.VISIBLE);
+                        }else{
+                            recycler.setVisibility(View.VISIBLE);
+                        }
+                    } else
+                        ((TextView) findViewById(R.id.tv_place_no_comments)).setVisibility(View.VISIBLE);
+                    progress.dismiss();
+                }
+            };
+
+            Response.ErrorListener callBack_ERROR = new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    ((TextView) findViewById(R.id.tv_place_no_comments)).setVisibility(View.VISIBLE);
+                    progress.dismiss();
+                }
+            };
+
+            proxy.BACKEND_API_POST(HttpClientManager.BKN_GET_COMMENTS, new JSONObject(new Gson().toJson(place)), callBack_OK, callBack_ERROR);
+
+        } catch (Exception oException)
+        {
+            ((TextView) findViewById(R.id.tv_place_no_comments)).setVisibility(View.VISIBLE);
+            progress.dismiss();
         }
     }
 
@@ -234,7 +293,7 @@ public class PlaceDetail extends AppCompatActivity {
                                     public void onResponse(JSONObject response) {
                                         BaseResponse oResponse = new Gson().fromJson(response.toString(), BaseResponse.class);
                                         if (Integer.parseInt(oResponse.getCode()) == HttpApiResponse.SUCCES_CODE) {
-                                            //Cargar Comentarios
+                                            showComments();
                                             dialog.cancel();
                                         } else {
                                             Toast.makeText(getApplicationContext(), getString(R.string.somethingWentWrong), Toast.LENGTH_SHORT).show();
