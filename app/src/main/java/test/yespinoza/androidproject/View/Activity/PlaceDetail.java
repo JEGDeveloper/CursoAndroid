@@ -153,12 +153,10 @@ public class PlaceDetail extends AppCompatActivity {
                         adapter = new CommentAdapter(listComments);
                         //adapter.setOnItemClickListener(FragmentFavoritePlaces.this);
                         recycler.setAdapter(adapter);
-                        /**Swipe to Delete**/
-                        //recycler.addOnItemTouchListener( new SwipeableRecyclerViewTouchListener(recycler, new SwipeListener(adapter, items)));
-
                         if(listComments.isEmpty()){
                             ((TextView) findViewById(R.id.tv_place_no_comments)).setVisibility(View.VISIBLE);
                         }else{
+                            ((TextView) findViewById(R.id.tv_place_no_comments)).setVisibility(View.GONE);
                             recycler.setVisibility(View.VISIBLE);
                         }
                     } else
@@ -190,7 +188,7 @@ public class PlaceDetail extends AppCompatActivity {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(uri)));
         } catch (Exception e) {
             if (e instanceof ActivityNotFoundException)
-                Toast.makeText(getApplicationContext(),"La aplicación no está instalada.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),getString(R.string.waze_not_install), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -273,12 +271,12 @@ public class PlaceDetail extends AppCompatActivity {
         try {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(PlaceDetail.this);
 
-            alertDialogBuilder.setTitle("Agregar Comentario");
+            alertDialogBuilder.setTitle(getString(R.string.AddComment));
             View dialogView = LayoutInflater.from(PlaceDetail.this).inflate(R.layout.activity_dialog_message, null);
             alertDialogBuilder
-                    .setMessage("Digite su comentario y presione la opción de agregar")
+                    .setMessage(getString(R.string.add_comment_desc))
                     .setView(dialogView)
-                    .setPositiveButton("Agregar", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(getString(R.string.add), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             EditText et_comment = dialogView.findViewById(R.id.et_comment);
                             if (et_comment.getText().toString().trim().equals("")) {
@@ -321,7 +319,7 @@ public class PlaceDetail extends AppCompatActivity {
                             }
                         }
                     })
-                    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
                         }

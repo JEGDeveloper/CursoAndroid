@@ -76,18 +76,19 @@
                 android:layout_height="40dp"
                 android:paddingHorizontal="10dp"
                 android:background="@drawable/text_view_shape" />
+
+            <Button
+                android:id="@+id/btnSend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/CreateUser"
+                android:onClick="createUser"
+                android:gravity="center"
+                android:textColor="@color/colorWhite"
+                android:background="@drawable/btnlogin_shape"
+                android:layout_margin="30dp"
+                android:layout_marginHorizontal="20dp"/>
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/btnSend"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/CreateUser"
-        android:onClick="createUser"
-        android:gravity="center"
-        android:textColor="@color/colorWhite"
-        android:background="@drawable/btnlogin_shape"
-        android:layout_margin="30dp"
-        android:layout_marginHorizontal="20dp"/>
 </LinearLayout>

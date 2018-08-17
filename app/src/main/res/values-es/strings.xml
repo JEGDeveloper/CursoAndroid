@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Project</string>
     <string name="LoginTittle">Ingreso al Sistema</string>
-    <string name="LoginTVUser">Usuario:</string>
+    <string name="LoginTVUser">Usuario</string>
     <string name="LoginTVPassword">Contraseña</string>
     <string name="LoginBtnLogin">Ingresar</string>
     <string name="LoginTstNoUsername">Por favor, digite su usuario</string>
@@ -20,7 +20,7 @@
     <string name="tvEmail">Correo</string>
     <string name="tvDateOfBirth">Fecha de Nacimiento</string>
     <string name="nextText">Siguiente</string>
-    <string name="tvConfirmPassword">Confirmar Contraseña:</string>
+    <string name="tvConfirmPassword">Confirmar Contraseña</string>
     <string name="personalInfoText">Información Personal</string>
     <string name="completeFieldsMsg">Digite los datos solicitados</string>
     <string name="passwordsNoMatch">Las contraseñas no coinciden</string>
@@ -57,4 +57,11 @@
     <string name="nav_header_desc">Encabezado del navegador</string>
     <string name="waze" translatable="false">waze://?ll=%1$s&amp;navigate=yes</string>
     <string name="invalid_phone">Teléfono Inválido</string>
+    <string name="waze_not_install">Estimado usuario, la aplicación no está instalada.</string>
+    <string name="AddComment">Agregar Comentario</string>
+    <string name="add_comment_desc">Digite su comentario y presione la opción de agregar</string>
+    <string name="add">Agregar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="comments">Comentarios</string>
+    <string name="no_comments">Sin comentarios...</string>
 </resources>

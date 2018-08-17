@@ -2,8 +2,8 @@
     <string name="app_name">Project</string>
     <!--Login Activity-->
     <string name="LoginTittle">Ingreso al Sistema</string>
-    <string name="LoginTVUser">Usuario:</string>
-    <string name="LoginTVPassword">Contraseña:</string>
+    <string name="LoginTVUser">Usuario</string>
+    <string name="LoginTVPassword">Contraseña</string>
     <string name="LoginBtnLogin">Ingresar</string>
     <string name="LoginTstNoUsername">Por favor, digite su usuario</string>
     <string name="LoginTstNoPassword">Por favor, digite su contraseña</string>
@@ -63,5 +63,12 @@
     <string name="waze" translatable="false">waze://?ll=%1$s&amp;navigate=yes</string>
     <string name="sinConexion">No hay conexion de internet</string>
     <string name="invalid_phone">Teléfono Inválido</string>
+    <string name="waze_not_install">Estimado usuario, la aplicación no está instalada.</string>
+    <string name="AddComment">Agregar Comentario</string>
+    <string name="add_comment_desc">Digite su comentario y presione la opción de agregar</string>
+    <string name="add">Agregar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="comments">Comentarios</string>
+    <string name="no_comments">Sin comentarios...</string>
 
 </resources>

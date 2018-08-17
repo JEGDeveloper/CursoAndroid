@@ -4,16 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/gray_background"
+    android:background="@drawable/favorites_background"
     tools:context=".View.Fragment.FragmentFavoritePlaces">
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/map_shape">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sitios Favoritos"
+        android:textColor="@color/colorPrimary"
+        android:layout_margin="12dp"
         android:textSize="25dp"
         android:textStyle="bold"
         android:gravity="center"/>
+</LinearLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/reciclador"
         android:layout_width="match_parent"

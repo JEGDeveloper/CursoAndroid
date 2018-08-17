@@ -4,15 +4,18 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +25,7 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
+import test.yespinoza.androidproject.Model.Response.BaseResponse;
 import test.yespinoza.androidproject.View.Activity.ChangePassword;
 import test.yespinoza.androidproject.View.Activity.Index;
 
@@ -34,13 +38,18 @@ import test.yespinoza.androidproject.Project;
 import test.yespinoza.androidproject.R;
 
 public class FragmentSettings extends Fragment {
-    private View rootView;
+    public static View rootView;
+    public static FragmentSettings instance;
     private int blackColor;
     private int disabledColor;
     private Drawable textViewEnabled;
     private Drawable textViewDisabled;
     private User oUser;
     private ProgressDialog progress;
+    private HttpClientManager proxy;
+    private ImageView img_user_picture;
+    public static Bitmap bitmap;
+    private final int CONS = 0;
 
     private OnFragmentInteractionListener mListener;
 
@@ -74,13 +83,26 @@ public class FragmentSettings extends Fragment {
                 onChangePasswordButtonListener(v);
             }
         });
+        bitmap = null;
         blackColor = rootView.getResources().getColor(R.color.colorBlack);
         disabledColor = rootView.getResources().getColor(R.color.colorDisabled);
         textViewEnabled = rootView.getResources().getDrawable(R.drawable.text_view_shape);
         textViewDisabled = rootView.getResources().getDrawable(R.drawable.disabled_text_view_shape);
+        img_user_picture=rootView.findViewById(R.id.img_user_picture);
+        proxy = new HttpClientManager(getContext());
+        img_user_picture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE),CONS);
+                if(bitmap != null){
+                    img_user_picture.setImageBitmap(bitmap);
+                }
+            }
+        });
         loadUser();
         EnableForm(false);
         progress  = new ProgressDialog(rootView.getContext());
+        instance = this;
         return rootView;
     }
 
@@ -106,23 +128,24 @@ public class FragmentSettings extends Fragment {
                 //Save Method
                 oUser = Project.getInstance().getCurrentUser();
                 EditText editText = rootView.findViewById(R.id.etName);
-            oUser.setName(Helper.TextFormat(editText.getText().toString()));
-            editText = rootView.findViewById(R.id.etLastName);
-            oUser.setLastName(Helper.TextFormat(editText.getText().toString()));
-            editText = rootView.findViewById(R.id.etPhone);
-            oUser.setPhone(Helper.TextFormat(editText.getText().toString()));
-            editText = rootView.findViewById(R.id.etDateOfBirth);
-            oUser.setDateOfBirth(editText.getText().toString().trim());
-            oUser.setEmail(((TextView)rootView.findViewById(R.id.tvEmail)).getText().toString());
-            editText = rootView.findViewById(R.id.etAddress);
-            oUser.setAddress(Helper.TextFormat(editText.getText().toString()));
+                oUser.setName(Helper.TextFormat(editText.getText().toString()));
+                editText = rootView.findViewById(R.id.etIdNumber);
+                oUser.setIdNumber(Helper.TextFormat(editText.getText().toString()));
+                editText = rootView.findViewById(R.id.etLastName);
+                oUser.setLastName(Helper.TextFormat(editText.getText().toString()));
+                editText = rootView.findViewById(R.id.etPhone);
+                oUser.setPhone(Helper.TextFormat(editText.getText().toString()));
+                editText = rootView.findViewById(R.id.etDateOfBirth);
+                oUser.setDateOfBirth(editText.getText().toString().trim());
+                oUser.setEmail(((TextView)rootView.findViewById(R.id.tvEmail)).getText().toString());
+                editText = rootView.findViewById(R.id.etAddress);
+                oUser.setAddress(Helper.TextFormat(editText.getText().toString()));
 
-            if (oUser.getName().equals("") ||
+            if (    oUser.getIdNumber().equals("") ||
+                    oUser.getName().equals("") ||
                     oUser.getLastName().equals("") ||
-                    oUser.getEmail().equals("") ||
-                    oUser.getPhone().equals("") ||
-                    oUser.getDateOfBirth().equals("")||
-                    oUser.getAddress().equals("")) {
+                    oUser.getEmail().equals(""))
+                     {
                 Toast.makeText(rootView.getContext(), getString(R.string.completeFieldsMsg), Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -132,11 +155,17 @@ public class FragmentSettings extends Fragment {
                 return;
             }
 
-            if(!Helper.dateValidation(oUser.getDateOfBirth())){
-                Toast.makeText(rootView.getContext(), getString(R.string.invalidDate), Toast.LENGTH_SHORT).show();
-                return;
-            }
+                if(!Helper.dateValidation(oUser.getDateOfBirth()) && !oUser.getDateOfBirth().equals("")){
+                    Toast.makeText(rootView.getContext(), getString(R.string.invalidDate), Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
+                if(oUser.getPhone().length()!=8 && !oUser.getDateOfBirth().equals("")){
+                    Toast.makeText(rootView.getContext(), getString(R.string.invalid_phone), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(bitmap != null)
+                    oUser.setPicture(Helper.fromBitmapToBase64(bitmap));
                 //region BackEnd Called
                 ShowProgressDialog(getString(R.string.user_update_title), getString(R.string.user_validation_description));
                 Response.Listener<JSONObject> callBack_OK = new Response.Listener<JSONObject>() {
@@ -180,6 +209,11 @@ public class FragmentSettings extends Fragment {
         editText.setTextColor(color);
         editText.setBackground(textViewShape);
 
+        editText = rootView.findViewById(R.id.etIdNumber);
+        editText.setEnabled(enable);
+        editText.setTextColor(color);
+        editText.setBackground(textViewShape);
+
         editText = rootView.findViewById(R.id.etLastName);
         editText.setEnabled(enable);
         editText.setTextColor(color);
@@ -212,6 +246,10 @@ public class FragmentSettings extends Fragment {
             ((EditText)rootView.findViewById(R.id.etPhone)).setText(user.getPhone());
             ((TextView)rootView.findViewById(R.id.tvEmail)).setText(user.getEmail());
             ((EditText)rootView.findViewById(R.id.etAddress)).setText(user.getAddress());
+            if(user.getPicture()!=null && !user.getPicture().equals(""))
+            {
+                img_user_picture.setImageBitmap(Helper.fromBase64ToBitmap(user.getPicture()));
+            }
         }
     }
 
@@ -250,4 +288,6 @@ public class FragmentSettings extends Fragment {
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
     }
+
+
 }

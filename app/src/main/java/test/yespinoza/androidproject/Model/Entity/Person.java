@@ -9,25 +9,9 @@ public class  Person implements Serializable {
     private String lastName;
     private String email;
     private String phone;
-
-    public String getIdNumber() {
-        return idNumber;
-    }
-
-    public void setIdNumber(String idNumber) {
-        this.idNumber = idNumber;
-    }
-
-    public String getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
-    }
-
     private String birthday;
     private String address;
+    private String picture;
 
     public Person(){
         id = "";
@@ -49,6 +33,23 @@ public class  Person implements Serializable {
         birthday = pDateOfBirth;
         address = pAddress;
     }
+
+    public String getIdNumber() {
+        return idNumber;
+    }
+
+    public void setIdNumber(String idNumber) {
+        this.idNumber = idNumber;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
 
     public String getFullName(){
         try {
@@ -111,5 +112,13 @@ public class  Person implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 }

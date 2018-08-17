@@ -2,8 +2,8 @@
 <resources>
     <string name="app_name">Project</string>
     <string name="LoginTittle">Login</string>
-    <string name="LoginTVUser">User:</string>
-    <string name="LoginTVPassword">Password:</string>
+    <string name="LoginTVUser">User</string>
+    <string name="LoginTVPassword">Password</string>
     <string name="LoginBtnLogin">Login</string>
     <string name="LoginTstNoUsername">Please, type your username</string>
     <string name="LoginTstNoPassword">Please, type your password</string>
@@ -24,7 +24,7 @@
     <string name="tvEmail">Email</string>
     <string name="tvDateOfBirth">Date of Birth</string>
     <string name="nextText">Next</string>
-    <string name="tvConfirmPassword">Confirm Password:</string>
+    <string name="tvConfirmPassword">Confirm Password</string>
     <string name="personalInfoText">Personal Information</string>
     <string name="completeFieldsMsg">Please, type the required data</string>
     <string name="passwordsNoMatch">The passwords don\'t match</string>
@@ -61,4 +61,11 @@
     <string name="nuevoSitio">New Site</string>
     <string name="sinConexion">No internet Connection</string>
     <string name="invalid_phone">Invalid Phone Number</string>
+    <string name="waze_not_install">Dear customer, waze is not install.</string>
+    <string name="AddComment">Add Comment</string>
+    <string name="add_comment_desc">Type your comment and press the option Add</string>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
+    <string name="comments">Comments</string>
+    <string name="no_comments">No comments...</string>
 </resources>

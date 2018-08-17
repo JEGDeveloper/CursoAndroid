@@ -35,6 +35,7 @@
                     android:textColor="@color/colorPrimary"
                     android:background="@drawable/text_view_shape"/>
                 <ImageButton
+                    android:id="@+id/img_user_picture"
                     android:layout_width="160dp"
                     android:layout_height="160dp"
                     android:src="@drawable/ic_user"
@@ -52,15 +53,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="22dp"
                     android:layout_gravity="center"
-                    android:text=""
-                    android:textColor="@color/colorDisabled"
+                    android:text="asd"
+                    android:textColor="@color/colorLightDisabled"
                     android:textSize="20dp" />
                 <TextView
                     android:id="@+id/tvIdNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="22dp"
-                    android:layout_marginBottom="22dp"
+                    android:layout_margin="22dp"
                     android:text="@string/tvIdNumber"
                     android:textColor="@color/colorBlack"
                     android:textSize="20dp" />

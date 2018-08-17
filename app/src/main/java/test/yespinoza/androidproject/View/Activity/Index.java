@@ -1,10 +1,12 @@
 package test.yespinoza.androidproject.View.Activity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
@@ -19,9 +21,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
+
+import test.yespinoza.androidproject.Model.Response.BaseResponse;
+import test.yespinoza.androidproject.Model.Utils.Helper;
+import test.yespinoza.androidproject.Model.Utils.HttpApiResponse;
+import test.yespinoza.androidproject.Model.Utils.HttpClientManager;
 import test.yespinoza.androidproject.View.Fragment.FragmentFavoritePlaces;
 import test.yespinoza.androidproject.View.Fragment.FragmentLocation;
 import test.yespinoza.androidproject.View.Fragment.FragmentSettings;
@@ -35,6 +48,7 @@ public class Index extends AppCompatActivity
     public static String ACTIVITY_CODE = "103";
     User oUser;
     NavigationView navigationView;
+    private HttpClientManager proxy;
     public static Index instance;
     private boolean onIndex = true;
 
@@ -43,6 +57,7 @@ public class Index extends AppCompatActivity
         super.onCreate(savedInstanceState);
         Project.getInstance().setCurrentActivity(this);
         instance = this;
+        proxy = new HttpClientManager(this);
         setContentView(R.layout.activity_index);
         //Se asigna el usuario Actual
         oUser = Project.getInstance().getCurrentUser();
@@ -87,10 +102,13 @@ public class Index extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         TextView tvDrawerName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tvDrawerName);
         TextView tvDrawerEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tvDrawerEmail);
+        ImageView img_profile = navigationView.getHeaderView(0).findViewById(R.id.img_profile);
         if(tvDrawerName != null)
             tvDrawerName.setText(oUser.getFullName());
         if(tvDrawerEmail != null)
             tvDrawerEmail.setText(oUser.getEmail());
+        if(img_profile != null && oUser.getPicture() !=  null && !oUser.getPicture().equals(""))
+            img_profile.setImageBitmap(Helper.fromBase64ToBitmap(oUser.getPicture()));
     }
 
     @Override
@@ -190,5 +208,54 @@ public class Index extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode,resultCode,data);
+        if (resultCode == Activity.RESULT_OK)
+        {
+            try {
+                if (FragmentSettings.rootView != null) {
+                    Bundle ext = data.getExtras();
+                    FragmentSettings.bitmap = (Bitmap) ext.get("data");
+                    ((ImageView)findViewById(R.id.img_user_picture)).setImageBitmap(FragmentSettings.bitmap);
+                    uploadPhoto(FragmentSettings.bitmap);
+                }
+            }catch (Exception ex){
+
+            }
+        }
+    }
+
+    public void uploadPhoto(Bitmap bitmap) {
+        try {
+            //ShowProgressDialog(getString(R.string.title_loading_data), getString(R.string.description_loading_data));
+            oUser = Project.getInstance().getCurrentUser();
+            oUser.setPicture(Helper.fromBitmapToBase64(bitmap));
+            Response.Listener<JSONObject> callBack_OK = new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    BaseResponse oResponse = new Gson().fromJson(response.toString(), BaseResponse.class);
+                    if (Integer.parseInt(oResponse.getCode()) == HttpApiResponse.SUCCES_CODE) {
+                        Project.getInstance().setCurrentUser(oUser);
+                        Index.getInstance().userData();
+                    }
+                    //progress.dismiss();
+                }
+            };
+
+            Response.ErrorListener callBack_ERROR = new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    String aux = "";
+                }
+            };
+            proxy.BACKEND_API_POST(HttpClientManager.BKN_UPDATE_PHOTO, new JSONObject(new Gson().toJson(oUser)), callBack_OK, callBack_ERROR);
+        } catch (Exception oException) {
+        }
     }
 }

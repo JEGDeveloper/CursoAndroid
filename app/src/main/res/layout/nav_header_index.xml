@@ -14,7 +14,7 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageButton
-        android:id="@+id/imgProfile"
+        android:id="@+id/img_profile"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:contentDescription="@string/nav_header_desc"

@@ -44,7 +44,7 @@ public class Project extends Application {
     public void updateUserPreference(Context pContext){
         SharedPreferences myPreferences = PreferenceManager.getDefaultSharedPreferences(pContext);
         SharedPreferences.Editor myEditor = myPreferences.edit();
-        myEditor.putString("UserName", currentUser.getId());
+        myEditor.putString("UserName", currentUser.getUserName());
         myEditor.putString("Password", currentUser.getPassword());
         myEditor.commit();
     }

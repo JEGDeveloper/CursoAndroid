@@ -2,8 +2,8 @@
 <resources>
     <string name="app_name">Project</string>
     <string name="LoginTittle">Entrar</string>
-    <string name="LoginTVUser">Usuário:</string>
-    <string name="LoginTVPassword">Senha:</string>
+    <string name="LoginTVUser">Usuário</string>
+    <string name="LoginTVPassword">Senha</string>
     <string name="LoginBtnLogin">Entrar</string>
     <string name="LoginTstNoUsername">Por favor, digite sau usuário</string>
     <string name="LoginTstNoPassword">Por favor, digite sau senha</string>
@@ -24,14 +24,13 @@
     <string name="tvEmail">O email</string>
     <string name="tvDateOfBirth">Data de nascimento</string>
     <string name="nextText">Próximo</string>
-    <string name="tvConfirmPassword">Confirme a Senha:</string>
+    <string name="tvConfirmPassword">Confirme a Senha</string>
     <string name="personalInfoText">Informação pessoal</string>
     <string name="completeFieldsMsg">Por favor, digite os dados necessários</string>
     <string name="passwordsNoMatch">As senhas não combinam</string>
     <string name="userCreationText">Criação de Usuários</string>
     <string name="somethingWentWrong">Algo deu errado. Tente de novo</string>
     <string name="btnSettingsEdit">Editar</string>
-    <string name="btnSettingsSave">Salve </string>
     <string name="SettingsSaveSuccess">Foi atualizado corretamente!</string>
     <string name="SettingsSaveFailed">Algo deu errado ao tentar atualizar as informações. Por favor, tente novamente...</string>
     <string name="tvCurrentPassword">senha atual</string>
@@ -60,4 +59,5 @@
     <string name="nuevoSitio">Novo site</string>
     <string name="sinConexion">Sem conexão com a internet</string>
     <string name="waze" translatable="false">waze://?ll=%1$s&amp;navigate=yes</string>
+    <string name="btnSettingsSave">Guardar</string>
 </resources>

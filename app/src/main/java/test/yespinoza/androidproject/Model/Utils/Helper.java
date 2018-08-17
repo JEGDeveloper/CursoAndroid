@@ -2,10 +2,14 @@ package test.yespinoza.androidproject.Model.Utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.StrictMode;
 import android.util.Base64;
 import android.widget.ImageView;
 
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 
 import test.yespinoza.androidproject.R;
@@ -92,6 +96,27 @@ public class Helper {
             byte[] imageBytes = baos.toByteArray();
             return Base64.encodeToString(imageBytes, Base64.DEFAULT);
         }catch(Exception ex){
+            return null;
+        }
+    }
+
+    public static Bitmap fromUriToBitmap(String uri){
+        try {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            URL url = new URL(uri);
+            Bitmap bitmap = BitmapFactory.decodeStream((InputStream)url.getContent());
+            return bitmap;
+        }catch (Exception ex) {
+            return null;
+        }
+    }
+
+    public static String fromUriToBase64(String uri){
+        try {
+            String image = fromBitmapToBase64(fromUriToBitmap(uri));
+            return image;
+        }catch (Exception ex) {
             return null;
         }
     }

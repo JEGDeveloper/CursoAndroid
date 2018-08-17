@@ -6,4 +6,6 @@
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorDisabled">#FF3E3E3E</color>
+    <color name="colorLightDisabled">#747474</color>
+    <color name="colorLighterDisabled">#d1d1d1</color>
 </resources>

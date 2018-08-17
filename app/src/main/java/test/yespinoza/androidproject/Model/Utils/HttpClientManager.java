@@ -22,6 +22,7 @@ public class HttpClientManager {
     public static  String BKN_CREATE_USER = "User/CreateUser";
     public static String BKN_GET_USER = "User/GetUser";
     public static String BKN_UPDATE_USER = "User/UpdateUser";
+    public static String BKN_CHANGE_PASSWORD = "User/ChangePasswordUser";
     public static String BKN_GET_PLACES = "Location/GetPlaces";
     public static String BKN_GET_FAVORITE_PLACES = "Location/GetFavoritePlaces";
     public static String BKN_MANAGE_FAVORITE_PLACE = "Location/ManageFavoritePlace";
@@ -29,6 +30,7 @@ public class HttpClientManager {
     public static String BKN_SET_PLACE_SCORE = "Location/SetPlaceScore";
     public static String BKN_GET_COMMENTS = "Location/GetComments";
     public static String BKN_CREATE_COMMENT = "Location/CreateComment";
+    public static String BKN_UPDATE_PHOTO = "User/UpdatePhoto";
     //endregion
     private RequestQueue cola;
 

@@ -32,6 +32,7 @@ import io.reactivex.subjects.Subject;
 import test.yespinoza.androidproject.Model.Entity.Place;
 import test.yespinoza.androidproject.Project;
 import test.yespinoza.androidproject.R;
+import test.yespinoza.androidproject.View.Fragment.FragmentLocation;
 
 public class MapView extends FrameLayout implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback {
 
@@ -41,6 +42,9 @@ public class MapView extends FrameLayout implements GoogleMap.OnMarkerClickListe
     private ArrayList<Place> places;
     private MapViewEvents listener;
     private Bitmap favoriteBitmap;
+    private double longitud = -84.21732;
+    private double latitud = 10.0070624;
+    private boolean locateCamera = true;
 
     public MapView(@NonNull Context context) {
         super(context);
@@ -102,8 +106,21 @@ public class MapView extends FrameLayout implements GoogleMap.OnMarkerClickListe
             googleMap.setOnMarkerClickListener(this);
             googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
             googleMap.setMyLocationEnabled(true);
-
-            LatLng latLng = new LatLng(10.0070624, -84.21732);
+            googleMap.setOnMyLocationChangeListener(location -> {
+                if (listener != null) {
+                    FragmentLocation.longitude = location.getLongitude();
+                    FragmentLocation.latitude = location.getLatitude();
+                    longitud = location.getLongitude();
+                    latitud = location.getLatitude();
+                    if(locateCamera){
+                        LatLng latLng = new LatLng(latitud, longitud );
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                        googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+                        locateCamera = false;
+                    }
+                }
+            });
+            LatLng latLng = new LatLng(latitud, longitud );
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
             googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
             loadMarkers();

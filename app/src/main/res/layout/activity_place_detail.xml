@@ -33,7 +33,7 @@
                         android:layout_width="130dp"
                         android:layout_height="130dp"
                         android:layout_gravity="center"
-                        android:layout_marginTop="15dp"
+                        android:layout_margin="5dp"
                         android:background="@drawable/text_view_shape"
                         android:maxHeight="50dp"
                         android:maxWidth="50dp"
@@ -47,10 +47,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
                     android:background="@color/colorWhite"
-                    android:maxHeight="125dp"
-                    android:maxWidth="15dp"
                     android:scaleType="fitCenter"
                     android:onClick="ManageFavoritePlace"
                     android:src="@drawable/ic_dislike" />
@@ -64,7 +61,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="left|center"
-                        android:layout_margin="15dp"
+                        android:layout_margin="10dp"
                         android:text="@string/tvName"
                         android:textColor="@color/colorBlack"
                         android:textSize="15dp" />
@@ -74,7 +71,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="right|center"
-                        android:layout_margin="15dp"
+                        android:layout_margin="10dp"
                         android:textColor="@color/colorDisabled"
                         android:textSize="15dp" />
                 </LinearLayout>
@@ -95,7 +92,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="left|center"
-                        android:layout_margin="15dp"
+                        android:layout_margin="10dp"
                         android:text="@string/tv_place_description"
                         android:textColor="@color/colorBlack"
                         android:textSize="15dp" />
@@ -105,7 +102,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="right|center"
-                        android:layout_margin="15dp"
+                        android:layout_margin="10dp"
                         android:textColor="@color/colorDisabled"
                         android:textSize="15dp" />
                 </LinearLayout>
@@ -124,7 +121,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="left|center"
-                        android:layout_margin="15dp"
+                        android:layout_margin="10dp"
                         android:text="@string/tvPhone"
                         android:textColor="@color/colorBlack"
                         android:textSize="15dp" />
@@ -134,7 +131,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="right|center"
-                        android:layout_margin="15dp"
+                        android:layout_margin="10dp"
                         android:textColor="@color/colorDisabled"
                         android:textSize="15dp" />
                 </LinearLayout>
@@ -152,7 +149,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="right|center"
-                        android:layout_margin="15dp"
+                        android:layout_marginTop="5dp"
                         android:numStars="5" />
                 </LinearLayout>
                 <View
@@ -162,14 +159,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorLighterDisabled"
                 android:orientation="horizontal">
                 <TextView
                     android:id="@+id/tv_place_comments"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left|center"
-                    android:layout_margin="15dp"
-                    android:text="Comentarios"
+                    android:layout_margin="10dp"
+                    android:text="@string/comments"
                     android:textColor="@color/colorBlack"
                     android:textSize="15dp" />
                 <TextView
@@ -180,7 +178,7 @@
                     android:layout_gravity="left|center"
                     android:gravity="right"
                     android:layout_margin="15dp"
-                    android:text="Sin Comentarios.."
+                    android:text="@string/no_comments"
                     android:textColor="@color/colorDisabled"
                     android:textSize="15dp" />
 
@@ -205,18 +203,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/colorBlack" />
-                <!--<Button
-                    android:id="@+id/btnWaze"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="30dp"
-                    android:layout_marginHorizontal="20dp"
-                    android:background="@drawable/btnlogin_shape"
-                    android:gravity="center"
-                    android:onClick="openWaze"
-                    android:text="Ir con Waze"
-                    android:textColor="@color/colorWhite" />
-                    -->
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

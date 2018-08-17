@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -26,6 +27,9 @@ public class ChangePassword extends AppCompatActivity {
     private String currentPassword;
     private ProgressDialog progress;
     private User oUser;
+    private TextView tvCurrentPassword;
+    private EditText etCurrentPassword;
+    private boolean withoutPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,20 @@ public class ChangePassword extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.btnlogin_shape));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         currentPassword = Project.getInstance().getCurrentUser().getPassword();
+        tvCurrentPassword = findViewById(R.id.tvCurrentPassword);
+        etCurrentPassword = findViewById(R.id.etCurrentPassword);
+        isUserWithoutPassword();
+    }
+
+    private void isUserWithoutPassword(){
+        withoutPassword = currentPassword == null || currentPassword.equals("");
+        if(withoutPassword){
+            tvCurrentPassword.setVisibility(View.GONE);
+            etCurrentPassword.setVisibility(View.GONE);
+        }else{
+            tvCurrentPassword.setVisibility(View.VISIBLE);
+            etCurrentPassword.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -52,7 +70,7 @@ public class ChangePassword extends AppCompatActivity {
         String vNewPassword = ((EditText) findViewById(R.id.etPassword1)).getText().toString().trim();
         String vNewPasswordConfirm = ((EditText) findViewById(R.id.etPassword2)).getText().toString().trim();
         try {
-            if (vCurrentPassword.equals("") || vNewPassword.equals("") || vNewPasswordConfirm.equals("")) {
+            if ( (!withoutPassword && vCurrentPassword.equals("")) || vNewPassword.equals("") || vNewPasswordConfirm.equals("")) {
                 Toast.makeText(getApplicationContext(), getString(R.string.completeFieldsMsg), Toast.LENGTH_SHORT).show();
                 return;
             } else if (!vNewPassword.equals(vNewPasswordConfirm)) {
@@ -73,7 +91,7 @@ public class ChangePassword extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         UserResponse oResponse = new Gson().fromJson(response.toString(), UserResponse.class);
                         if (Integer.parseInt(oResponse.getCode()) == HttpApiResponse.SUCCES_CODE) {
-
+                            currentPassword = vNewPassword;
                             Project.getInstance().setCurrentUser(oUser);
                             Project.getInstance().updateUserPreference(getApplicationContext());
                             Index.getInstance().userData();
@@ -81,6 +99,7 @@ public class ChangePassword extends AppCompatActivity {
                             ((EditText)findViewById(R.id.etCurrentPassword)).setText("");
                             ((EditText)findViewById(R.id.etPassword1)).setText("");
                             ((EditText)findViewById(R.id.etPassword2)).setText("");
+                            isUserWithoutPassword();
                         } else
                             Toast.makeText(getApplicationContext(), getString(R.string.SettingsSaveFailed), Toast.LENGTH_SHORT).show();
                         progress.dismiss();
@@ -95,7 +114,7 @@ public class ChangePassword extends AppCompatActivity {
                     }
                 };
                 HttpClientManager proxy = new HttpClientManager(getApplicationContext());
-                proxy.BACKEND_API_POST(HttpClientManager.BKN_UPDATE_USER, new JSONObject(new Gson().toJson(oUser)), callBack_OK, callBack_ERROR);
+                proxy.BACKEND_API_POST(HttpClientManager.BKN_CHANGE_PASSWORD, new JSONObject(new Gson().toJson(oUser)), callBack_OK, callBack_ERROR);
                 //endregion
             }
         } catch (Exception oException) {
