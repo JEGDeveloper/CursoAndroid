@@ -3,6 +3,7 @@ package test.yespinoza.androidproject.View.Activity;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -46,6 +47,7 @@ public class AddPlace extends AppCompatActivity {
         setContentView(R.layout.activity_add_place);
         getSupportActionBar().setTitle(getString(R.string.nuevoSitio));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Project.getInstance().setCurrentActivity(this);
         progress  = new ProgressDialog(this);
         proxy = new HttpClientManager(this);
         img_place_detail=findViewById(R.id.img_place_detail);
@@ -118,7 +120,7 @@ public class AddPlace extends AppCompatActivity {
                         finish();
                     } else
                         Toast.makeText(getApplicationContext(), getString(R.string.somethingWentWrong), Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
+                    DismissProgressDialog();
                 }
             };
 
@@ -126,21 +128,27 @@ public class AddPlace extends AppCompatActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Toast.makeText(getApplicationContext(), getString(R.string.somethingWentWrong), Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
+                    DismissProgressDialog();
                 }
             };
 
             proxy.BACKEND_API_POST(HttpClientManager.BKN_CREATE_PLACE, new JSONObject(new Gson().toJson(place)), callBack_OK, callBack_ERROR);
 
         } catch (Exception oException) {
-            progress.dismiss();
+            DismissProgressDialog();
         }
     }
     private void ShowProgressDialog(String tittle, String message){
         progress.setTitle(tittle);
         progress.setMessage(message);
         progress.setCancelable(false);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         progress.show();
+    }
+
+    private void DismissProgressDialog(){
+        progress.dismiss();
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
     }
 
     public void addImage(View view){

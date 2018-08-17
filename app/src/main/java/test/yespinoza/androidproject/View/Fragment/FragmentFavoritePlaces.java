@@ -2,14 +2,13 @@ package test.yespinoza.androidproject.View.Fragment;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
@@ -46,7 +45,7 @@ public class FragmentFavoritePlaces extends Fragment implements CardViewAdapter.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        rootView = inflater.inflate(R.layout.fragment_fragment_favorite_places, container, false);
+        rootView = inflater.inflate(R.layout.fragment_favorite_places, container, false);
         items = new ArrayList<>();
         adapter = null;
         proxy = new HttpClientManager(getContext());
@@ -91,7 +90,7 @@ public class FragmentFavoritePlaces extends Fragment implements CardViewAdapter.
                         }
                     } else
                         Toast.makeText(getContext(), getString(R.string.somethingWentWrong), Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
+                    DismissProgressDialog();
                 }
             };
 
@@ -99,7 +98,7 @@ public class FragmentFavoritePlaces extends Fragment implements CardViewAdapter.
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Toast.makeText(getContext(), getString(R.string.somethingWentWrong), Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
+                    DismissProgressDialog();
                 }
             };
             proxy.BACKEND_API_POST(HttpClientManager.BKN_GET_FAVORITE_PLACES, new JSONObject(new Gson().toJson(Project.getInstance().getCurrentUser())), callBack_OK, callBack_ERROR);
@@ -107,7 +106,7 @@ public class FragmentFavoritePlaces extends Fragment implements CardViewAdapter.
         } catch (Exception oException)
         {
             Toast.makeText(getContext(), getString(R.string.somethingWentWrong), Toast.LENGTH_SHORT).show();
-            progress.dismiss();
+            DismissProgressDialog();
         }
     }
 
@@ -124,9 +123,14 @@ public class FragmentFavoritePlaces extends Fragment implements CardViewAdapter.
         progress.setTitle(tittle);
         progress.setMessage(message);
         progress.setCancelable(false);
+        Project.getInstance().getCurrentActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         progress.show();
     }
 
+    private void DismissProgressDialog(){
+        progress.dismiss();
+        Project.getInstance().getCurrentActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+    }
     @Override
     public void OnItemClick(int position) {
         showPlaceDetail(places.get(position));

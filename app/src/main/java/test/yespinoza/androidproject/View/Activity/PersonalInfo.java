@@ -24,6 +24,7 @@ public class PersonalInfo extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.btnlogin_shape));
         //getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.btnlogin_shape));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Project.getInstance().setCurrentActivity(this);
     }
 
     @Override

@@ -8,7 +8,7 @@ public class SQLiteDataBaseHelper extends SQLiteOpenHelper {
 
     private static SQLiteDataBaseHelper oDataBase;
 
-    public SQLiteDataBaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    private SQLiteDataBaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
@@ -40,7 +40,6 @@ public class SQLiteDataBaseHelper extends SQLiteOpenHelper {
         return 0;
     }
 
-    //Se ejecuta sólo una vez... ojo con no cambiar el nombre o la versión si se hacen cambios en la estructura
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table User (id int primary key, idNumber text, name text, lastName text, password text, email text, phone text, dateOfBirth text, address text)");

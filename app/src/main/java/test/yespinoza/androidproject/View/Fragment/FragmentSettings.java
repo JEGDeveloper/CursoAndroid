@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -178,7 +179,7 @@ public class FragmentSettings extends Fragment {
                             Index.getInstance().userData();
                         } else
                             Toast.makeText(rootView.getContext(), getString(R.string.SettingsSaveFailed), Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        DismissProgressDialog();
                     }
                 };
 
@@ -186,7 +187,7 @@ public class FragmentSettings extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(rootView.getContext(), getString(R.string.somethingWentWrong), Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        DismissProgressDialog();
                     }
                 };
                 HttpClientManager proxy = new HttpClientManager(rootView.getContext());
@@ -282,7 +283,13 @@ public class FragmentSettings extends Fragment {
         progress.setTitle(tittle);
         progress.setMessage(message);
         progress.setCancelable(false);
+        Project.getInstance().getCurrentActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         progress.show();
+    }
+
+    private void DismissProgressDialog(){
+        progress.dismiss();
+        Project.getInstance().getCurrentActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
     }
 
     public interface OnFragmentInteractionListener {

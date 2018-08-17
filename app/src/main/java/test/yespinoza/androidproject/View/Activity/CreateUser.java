@@ -2,6 +2,7 @@ package test.yespinoza.androidproject.View.Activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -34,6 +35,7 @@ public class CreateUser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_user);
         getSupportActionBar().setTitle(getString(R.string.userCreationText));
+        Project.getInstance().setCurrentActivity(this);
         progress  = new ProgressDialog(this);
         oUser = Project.getInstance().getCurrentUser();
         ((EditText) findViewById(R.id.etUserName)).setText(oUser.getEmail());
@@ -89,7 +91,7 @@ public class CreateUser extends AppCompatActivity {
                         activityRedirection();
                     else
                         Toast.makeText(getApplicationContext(), getString(R.string.somethingWentWrong), Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
+                    DismissProgressDialog();
                 }
             };
 
@@ -97,7 +99,7 @@ public class CreateUser extends AppCompatActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Toast.makeText(getApplicationContext(), getString(R.string.somethingWentWrong), Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
+                    DismissProgressDialog();
                 }
             };
             proxy = new HttpClientManager(this);
@@ -110,8 +112,14 @@ public class CreateUser extends AppCompatActivity {
     }
     private void ShowProgressDialog(String tittle, String message){
         progress.setTitle(tittle);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         progress.setMessage(message);
         progress.setCancelable(false);
         progress.show();
+    }
+
+    private void DismissProgressDialog(){
+        progress.dismiss();
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
     }
 }

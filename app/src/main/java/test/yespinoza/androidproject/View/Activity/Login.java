@@ -3,6 +3,7 @@ package test.yespinoza.androidproject.View.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -121,7 +122,7 @@ public class Login extends AppCompatActivity {
                         }
                     } else
                         LoginFailed();
-                    progress.dismiss();
+                    DismissProgressDialog();
                 }
             };
 
@@ -129,14 +130,14 @@ public class Login extends AppCompatActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     LoginFailed();
-                    progress.dismiss();
+                    DismissProgressDialog();
                 }
             };
 
             proxy.BACKEND_API_POST(HttpClientManager.BKN_GET_USER, new JSONObject(new Gson().toJson(user)), callBack_OK, callBack_ERROR);
         } catch (Exception oException) {
             LoginFailed();
-            progress.dismiss();
+            DismissProgressDialog();
         }
     }
 
@@ -174,7 +175,7 @@ public class Login extends AppCompatActivity {
                 userAuthentication(userToAuthenticate);
             } catch (ApiException e) {
                 LoginFailed();
-                progress.dismiss();
+                DismissProgressDialog();
             }
         }
     }
@@ -205,7 +206,13 @@ public class Login extends AppCompatActivity {
         progress.setTitle(tittle);
         progress.setMessage(message);
         progress.setCancelable(false);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         progress.show();
+    }
+
+    private void DismissProgressDialog(){
+        progress.dismiss();
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
     }
 
     public void FirebaseSignIn(View view){
@@ -238,17 +245,17 @@ public class Login extends AppCompatActivity {
                                 userAuthentication(userToAuthenticate);
                             }else {
                                 LoginFailed();
-                                progress.dismiss();
+                                DismissProgressDialog();
                             }
                         } else {
                             LoginFailed();
-                            progress.dismiss();
+                            DismissProgressDialog();
                         }
                     }
                 });
         } catch (Exception oException) {
             LoginFailed();
-            progress.dismiss();
+            DismissProgressDialog();
         }
     }
 }

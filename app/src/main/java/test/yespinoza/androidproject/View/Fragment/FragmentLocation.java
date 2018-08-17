@@ -3,6 +3,7 @@ package test.yespinoza.androidproject.View.Fragment;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.location.Criteria;
@@ -98,7 +99,7 @@ public class FragmentLocation extends FragmentBase {
                             binding.mapView.setPlaces(places);
                     }else
                         Toast.makeText(getContext(), getString(R.string.somethingWentWrong), Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
+                    DismissProgressDialog();
                 }
             };
 
@@ -106,13 +107,13 @@ public class FragmentLocation extends FragmentBase {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Toast.makeText(getContext(), getString(R.string.somethingWentWrong), Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
+                    DismissProgressDialog();
                 }
             };
             proxy.BACKEND_API_POST(HttpClientManager.BKN_GET_PLACES, new JSONObject(new Gson().toJson(Project.getInstance().getCurrentUser())),callBack_OK, callBack_ERROR);
 
         } catch (Exception oException) {
-            progress.dismiss();
+            DismissProgressDialog();
         }
     }
 
@@ -120,7 +121,13 @@ public class FragmentLocation extends FragmentBase {
         progress.setTitle(tittle);
         progress.setMessage(message);
         progress.setCancelable(false);
+        Project.getInstance().getCurrentActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         progress.show();
+    }
+
+    private void DismissProgressDialog(){
+        progress.dismiss();
+        Project.getInstance().getCurrentActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
     }
 
     public void showPlaceDetail(Place place) {

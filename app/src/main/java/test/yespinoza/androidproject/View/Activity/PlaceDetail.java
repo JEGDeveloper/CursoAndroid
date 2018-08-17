@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.media.Image;
 import android.media.Rating;
 import android.net.Uri;
@@ -161,7 +162,7 @@ public class PlaceDetail extends AppCompatActivity {
                         }
                     } else
                         ((TextView) findViewById(R.id.tv_place_no_comments)).setVisibility(View.VISIBLE);
-                    progress.dismiss();
+                    DismissProgressDialog();
                 }
             };
 
@@ -169,7 +170,7 @@ public class PlaceDetail extends AppCompatActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     ((TextView) findViewById(R.id.tv_place_no_comments)).setVisibility(View.VISIBLE);
-                    progress.dismiss();
+                    DismissProgressDialog();
                 }
             };
 
@@ -178,7 +179,7 @@ public class PlaceDetail extends AppCompatActivity {
         } catch (Exception oException)
         {
             ((TextView) findViewById(R.id.tv_place_no_comments)).setVisibility(View.VISIBLE);
-            progress.dismiss();
+            DismissProgressDialog();
         }
     }
 
@@ -207,7 +208,7 @@ public class PlaceDetail extends AppCompatActivity {
                         place.setFavorite(!place.isFavorite());
                         Toast.makeText(getApplicationContext(), getString(R.string.somethingWentWrong), Toast.LENGTH_SHORT).show();
                     }
-                    //progress.dismiss();
+
                 }
             };
 
@@ -216,7 +217,7 @@ public class PlaceDetail extends AppCompatActivity {
                 public void onErrorResponse(VolleyError error) {
                     place.setFavorite(!place.isFavorite());
                     Toast.makeText(getApplicationContext(), getString(R.string.somethingWentWrong), Toast.LENGTH_SHORT).show();
-                    //progress.dismiss();
+
                 }
             };
             ManageFavoritePlaceRequest oRequest = new ManageFavoritePlaceRequest();
@@ -227,7 +228,7 @@ public class PlaceDetail extends AppCompatActivity {
             oRequest.setScore(ratingBar.getRating());
             proxy.BACKEND_API_POST(HttpClientManager.BKN_MANAGE_FAVORITE_PLACE, new JSONObject(new Gson().toJson(oRequest)), callBack_OK, callBack_ERROR);
         } catch (Exception oException) {
-            progress.dismiss();
+            DismissProgressDialog();
         }
     }
 
@@ -333,9 +334,14 @@ public class PlaceDetail extends AppCompatActivity {
 
     private void ShowProgressDialog(String tittle, String message){
         progress.setTitle(tittle);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         progress.setMessage(message);
         progress.setCancelable(false);
         progress.show();
     }
 
+    private void DismissProgressDialog(){
+        progress.dismiss();
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+    }
 }

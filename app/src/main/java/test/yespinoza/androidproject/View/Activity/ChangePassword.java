@@ -1,6 +1,7 @@
 package test.yespinoza.androidproject.View.Activity;
 
 import android.app.ProgressDialog;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -38,6 +39,7 @@ public class ChangePassword extends AppCompatActivity {
         getSupportActionBar().setTitle(getString(R.string.btnChangePassword));
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.btnlogin_shape));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Project.getInstance().setCurrentActivity(this);
         currentPassword = Project.getInstance().getCurrentUser().getPassword();
         tvCurrentPassword = findViewById(R.id.tvCurrentPassword);
         etCurrentPassword = findViewById(R.id.etCurrentPassword);
@@ -102,7 +104,7 @@ public class ChangePassword extends AppCompatActivity {
                             isUserWithoutPassword();
                         } else
                             Toast.makeText(getApplicationContext(), getString(R.string.SettingsSaveFailed), Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        DismissProgressDialog();
                     }
                 };
 
@@ -110,7 +112,7 @@ public class ChangePassword extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(getApplicationContext(), getString(R.string.somethingWentWrong), Toast.LENGTH_SHORT).show();
-                        progress.dismiss();
+                        DismissProgressDialog();
                     }
                 };
                 HttpClientManager proxy = new HttpClientManager(getApplicationContext());
@@ -127,10 +129,16 @@ public class ChangePassword extends AppCompatActivity {
         if (progress == null) {
             progress = new ProgressDialog(this);
 
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
             progress.setTitle(tittle);
             progress.setMessage(message);
             progress.setCancelable(false);
             progress.show();
         }
+    }
+
+    private void DismissProgressDialog(){
+        progress.dismiss();
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
     }
 }
